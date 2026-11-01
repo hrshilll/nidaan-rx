@@ -1,4 +1,4 @@
-# PRISM-Rx 💊
+# Nidaan-Rx 💊
 > **Clinical Decision Support & Generic Substitution Engine**
 
 PRISM-Rx is an AI-powered pharmaceutical platform designed to bridge the gap between expensive commercial dermatology brands and affordable Jan Aushadhi generic substitutes in the Indian market. 
@@ -55,7 +55,7 @@ streamlit run src/app.py
 
 ## 📁 Project Structure
 ```text
-prism_rx/
+Nidaan-rx/
 │
 ├── data/
 │   ├── processed/          # Cleaned, parsed JSON entities ready for ML
