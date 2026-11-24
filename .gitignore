@@ -1,54 +1,52 @@
-# Environments
-.env
-.venv
-.venv312
+# --- Virtual Environments & Python ---
+.venv/
 venv/
-venvsource/
-ENV/
-env.bak/
-venv.bak/
-
-# Python artifacts
+env/
 __pycache__/
 *.py[cod]
-*$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-share/python-wheels/
 *.egg-info/
-.installed.cfg
-*.egg
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
 
-# Data files (Exclude large datasets from GitHub)
-data/raw/*.csv
-data/raw/*.zip
-data/processed/*.csv
-!data/raw/.gitkeep
-!data/processed/.gitkeep
-
-# macOS specific
+# --- macOS & Editor ---
 .DS_Store
 .AppleDouble
 .LSOverride
+*.swp
 
-# VS Code specific
-.vscode/
-*.code-workspace
+# --- Private Media & Real Patient Prescriptions (PII) ---
+Media/
 
-# Streamlit
-.streamlit/
+# --- Raw / Heavy Datasets ---
+data/raw/
+*.zip
+*.tar.gz
 
-# Jupyter Notebooks
-.ipynb_checkpoints
+# --- Synthetic Rx Dataset (Keep only lightweight JSON audit/benchmark reports) ---
+synthetic_rx_dataset/images/
+synthetic_rx_dataset/raw_renders/
+synthetic_rx_dataset/paddleocr_labels/
+synthetic_rx_dataset/paddleocr_rec_crops/
+synthetic_rx_dataset/debug_boxes/
+synthetic_rx_dataset/debug_aug_boxes/
+synthetic_rx_dataset/manifests/*.jsonl
+synthetic_rx_dataset/manifests/*.csv
+rx_synth/previews/
+
+# --- ML Checkpoints, Weights & Cached Embeddings (Task 2 / v2.0) ---
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.safetensors
+*.bin
+*.npy
+*.npz
+models/
+checkpoints/
+weights/
+
+# --- Secrets & Local Env ---
+.env
+.env.local

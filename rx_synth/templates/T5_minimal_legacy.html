@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1240px; min-height: 1754px; background: #fcfcfc; color: #2f2f2f;
+    font-family: 'Courier New', 'Kohinoor Gujarati', 'Kohinoor Devanagari', monospace;
+  }
+  .page {
+    width: 1240px; min-height: 1754px; padding: 54px 60px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .divider { border-bottom: 1.5px dashed #777; margin: 12px 0; }
+  .head-flex { display: flex; justify-content: space-between; font-size: 14.5px; line-height: 1.5; }
+  table.leg-table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 10px; }
+  table.leg-table th { border-top: 1px dashed #666; border-bottom: 1px dashed #666; padding: 7px 6px; text-align: left; }
+  table.leg-table td { padding: 8px 6px; border-bottom: 1px dotted #aaa; vertical-align: top; }
+  .brand-line { font-weight: 700; font-size: 14.5px; display: inline-block; }
+  .salt-line { font-size: 13px; color: #444; display: inline-block; margin-top: 2px; }
+  .footer-bar { display: flex; justify-content: space-between; font-size: 12.5px; border-top: 1px dashed #888; padding-top: 10px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div>
+    <div class="head-flex">
+      <div>
+        <div style="font-size:19px; font-weight:700;"><span data-ocr-tag="NOISE">{{ doctor.clinic_name.split(' by ')[0].upper() }}</span></div>
+        <div><span data-ocr-tag="NOISE">{{ doctor.name }} ({{ doctor.reg_no }})</span></div>
+        <div><span data-ocr-tag="NOISE">{{ doctor.qualifications }}</span></div>
+      </div>
+      <div style="text-align:right;">
+        <div><span data-ocr-tag="NOISE">{{ doctor.address_line1 }}</span></div>
+        <div><span data-ocr-tag="NOISE">{{ doctor.address_line2 }}</span></div>
+        <div><span data-ocr-tag="NOISE">TEL: {{ doctor.phone }}</span></div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="head-flex">
+      <div>
+        <div>PT: <span data-ocr-tag="NOISE">{{ patient.name }}</span> | <span data-ocr-tag="NOISE">{{ patient.age }}/{{ patient.gender }}</span></div>
+        <div>DX: <span data-ocr-tag="NOISE">{{ diagnosis }}</span></div>
+      </div>
+      <div style="text-align:right;">
+        <div>DT: <span data-ocr-tag="NOISE">{{ patient.visit_date }}</span></div>
+        <div>UID: <span data-ocr-tag="NOISE">{{ patient.uid }}</span></div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div style="font-weight:700; font-size:16px; margin-bottom:6px;">RX:</div>
+    <table class="leg-table">
+      <thead>
+        <tr>
+          <th style="width:44%;">{{ headers.drug }}</th>
+          <th style="width:12%;">{{ headers.dose }}</th>
+          <th style="width:16%;">{{ headers.freq }}</th>
+          <th style="width:16%;">{{ headers.instr }}</th>
+          <th style="width:12%;">{{ headers.duration }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for m in medications %}
+        <tr>
+          <td>
+            <div>{{ m.index }}. <span class="brand-line" data-ocr-tag="BRAND" data-row-anchor="{{ m.index }}">{{ m.raw_line }}</span></div>
+            <div style="padding-left:18px;"><span class="salt-line" data-ocr-tag="SALT" data-row-index="{{ m.index }}">{{ m.salt_line }}</span></div>
+            {% if m.posology.freq_note %}<div style="padding-left:18px; font-size:12.5px;">* <span data-ocr-tag="FREQ_NOTE">{{ m.posology.freq_note }}</span></div>{% endif %}
+          </td>
+          <td><span data-ocr-tag="DOSE">{{ m.posology.dose }}</span></td>
+          <td><span data-ocr-tag="FREQ">{{ m.posology.freq_code }} {{ m.posology.freq_label }}</span></td>
+          <td><span data-ocr-tag="INSTR">{{ m.posology.instruction }}</span></td>
+          <td><span data-ocr-tag="DURATION">{{ m.posology.duration }}</span></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {% if investigations %}
+    <div style="margin-top:18px; font-size:13px; line-height:1.5;">
+      <div style="font-weight:700;">LABS ADVISED:</div>
+      {% for inv in investigations %}
+      <div>- <span data-ocr-tag="NOISE">{{ inv.title }}: {{ inv.details }}</span></div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    <div style="margin-top:18px; font-weight:700;"><span data-ocr-tag="NOISE">NEXT VISIT: {{ followup_days }} DAYS</span></div>
+  </div>
+  <div class="footer-bar">
+    <div><span data-ocr-tag="NOISE">{{ patient.generated_on }}</span></div>
+    <div>PAGE 1</div>
+    <div><span data-ocr-tag="NOISE">{{ doctor.emr_footer }}</span></div>
+  </div>
+</div>
+</body>
+</html>

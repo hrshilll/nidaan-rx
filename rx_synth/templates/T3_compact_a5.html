@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1240px;
+    min-height: 1754px;
+    background: #ffffff;
+    color: #161616;
+    font-family: 'Noto Sans', 'Kohinoor Gujarati', 'Noto Sans Gujarati', 'Gujarati Sangam MN', 'Kohinoor Devanagari', 'Noto Sans Devanagari', 'Devanagari Sangam MN', 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    width: 1240px;
+    min-height: 1754px;
+    padding: 50px 56px 44px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #ffffff;
+  }
+
+  html, body, .page { width: 1120px; min-height: 1580px; }
+  .page { padding: 48px 54px; border: 1px solid #eee; }
+  .top-head { text-align: center; border-bottom: 2.5px double #222; padding-bottom: 14px; margin-bottom: 16px; }
+  .top-head h1 { font-size: 25px; letter-spacing: 1.5px; text-transform: uppercase; }
+  .top-head .sub { font-size: 14.5px; margin-top: 4px; line-height: 1.45; }
+  .pt-grid {
+    display: flex; justify-content: space-between; font-size: 15px; line-height: 1.65;
+    padding-bottom: 12px; border-bottom: 1px solid #999; margin-bottom: 14px;
+  }
+  .rx-sym { font-size: 38px; font-weight: 700; font-family: Georgia, serif; margin: 6px 0 12px 0; }
+  .med-card {
+    padding: 12px 14px; margin-bottom: 14px; border-left: 3px solid #333; background: #fbfbfb;
+  }
+  .brand-line { font-weight: 700; font-size: 16px; color: #111; display: inline-block; }
+  .salt-line { font-size: 13.5px; color: #333; margin-top: 3px; display: inline-block; }
+  .poso-line { margin-top: 7px; font-size: 14px; color: #222; }
+  .note-line { margin-top: 4px; font-size: 13px; color: #333; font-style: italic; }
+  .footer-bar {
+    margin-top: 30px; padding-top: 10px; border-top: 1px solid #bbb;
+    display: flex; justify-content: space-between; font-size: 13px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div>
+    <div class="top-head">
+      <h1><span data-ocr-tag="NOISE">{{ doctor.clinic_name.split(' by ')[0] }}</span></h1>
+      <div class="sub">
+        <div><strong><span data-ocr-tag="NOISE">{{ doctor.name }}</span></strong> — <span data-ocr-tag="NOISE">{{ doctor.qualifications }}</span></div>
+        <div><span data-ocr-tag="NOISE">Reg: {{ doctor.reg_no }} | {{ doctor.address_line1 }}, {{ doctor.address_line2 }} | Ph: {{ doctor.phone }}</span></div>
+      </div>
+    </div>
+
+    <div class="pt-grid">
+      <div>
+        <div><strong>Name:</strong> <span data-ocr-tag="NOISE">{{ patient.name }}</span> (<span data-ocr-tag="NOISE">{{ patient.age }}</span>, <span data-ocr-tag="NOISE">{{ patient.gender }}</span>)</div>
+        <div><strong>Dx:</strong> <span data-ocr-tag="NOISE">{{ diagnosis }}</span> | <strong>C/O:</strong> <span data-ocr-tag="NOISE">{{ chief_complaints }}</span></div>
+      </div>
+      <div style="text-align:right;">
+        <div><strong>Date:</strong> <span data-ocr-tag="NOISE">{{ patient.visit_date }}</span></div>
+        <div><strong>UID:</strong> <span data-ocr-tag="NOISE">{{ patient.uid }}</span></div>
+      </div>
+    </div>
+
+    <div class="rx-sym">&#8478;</div>
+
+    {% for m in medications %}
+    <div class="med-card">
+      <div><strong>{{ m.index }})</strong> <span class="brand-line" data-ocr-tag="BRAND" data-row-anchor="{{ m.index }}">{{ m.raw_line }}</span></div>
+      <div style="padding-left:22px;"><span class="salt-line" data-ocr-tag="SALT" data-row-index="{{ m.index }}">{{ m.salt_line }}</span></div>
+      <div style="padding-left:22px;" class="poso-line">
+        <span data-ocr-tag="DOSE">{{ m.posology.dose }}</span> &nbsp;|&nbsp;
+        <span data-ocr-tag="FREQ">{{ m.posology.freq_code }} {{ m.posology.freq_label }}</span> &nbsp;|&nbsp;
+        <span data-ocr-tag="INSTR">{{ m.posology.instruction }}</span> &nbsp;|&nbsp;
+        <span data-ocr-tag="DURATION">{{ m.posology.duration }}</span>
+        {% if m.posology.qty != '-' %} &nbsp;(Qty: <span data-ocr-tag="QTY">{{ m.posology.qty }}</span>){% endif %}
+      </div>
+      {% if m.posology.freq_note %}
+      <div style="padding-left:22px;" class="note-line">Direction: <span data-ocr-tag="FREQ_NOTE">{{ m.posology.freq_note }}</span></div>
+      {% endif %}
+    </div>
+    {% endfor %}
+
+    {% if followup_days %}
+    <div style="margin-top:20px; font-weight:700; font-size:15px;"><span data-ocr-tag="NOISE">Review after {{ followup_days }} Day(s)</span></div>
+    {% endif %}
+
+    <div style="margin-top:46px; text-align:right;">
+      <div style="display:inline-block; border-top:1px solid #333; padding-top:5px; min-width:180px; text-align:center; font-weight:600;">
+        <span data-ocr-tag="NOISE">{{ doctor.name }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bar">
+    <div><span data-ocr-tag="NOISE">{{ patient.generated_on }}</span></div>
+    <div><span data-ocr-tag="NOISE">{{ doctor.emr_footer }}</span></div>
+  </div>
+</div>
+</body>
+</html>

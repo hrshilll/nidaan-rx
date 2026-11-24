@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1240px;
+    min-height: 1754px;
+    background: #ffffff;
+    color: #161616;
+    font-family: 'Noto Sans', 'Kohinoor Gujarati', 'Noto Sans Gujarati', 'Gujarati Sangam MN', 'Kohinoor Devanagari', 'Noto Sans Devanagari', 'Devanagari Sangam MN', 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    width: 1240px;
+    min-height: 1754px;
+    padding: 50px 56px 44px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #ffffff;
+  }
+
+  .bill-head { display: flex; justify-content: space-between; border-bottom: 2px solid #222; padding-bottom: 14px; }
+  .inv-badge { font-size: 22px; font-weight: 800; letter-spacing: 1px; margin: 22px 0 14px 0; text-align: center; }
+  table.bill-table { width: 100%; border-collapse: collapse; font-size: 15px; margin-top: 14px; }
+  table.bill-table th, table.bill-table td { border: 1px solid #777; padding: 11px 14px; }
+  table.bill-table th { background: #f3f4f6; text-align: left; }
+  .total-row td { font-weight: 700; font-size: 16px; background: #fafafa; }
+  .footer-bar { border-top: 1px solid #bbb; padding-top: 10px; display: flex; justify-content: space-between; font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div>
+    <div class="bill-head">
+      <div>
+        <div style="font-size:22px; font-weight:700;"><span data-ocr-tag="NOISE">{{ doctor.clinic_name }}</span></div>
+        <div style="font-size:14px; margin-top:4px;"><span data-ocr-tag="NOISE">{{ doctor.name }} | Reg: {{ doctor.reg_no }}</span></div>
+      </div>
+      <div style="text-align:right; font-size:14px; line-height:1.5;">
+        <div><span data-ocr-tag="NOISE">{{ doctor.address_line1 }}</span></div>
+        <div><span data-ocr-tag="NOISE">{{ doctor.address_line2 }}</span></div>
+        <div><span data-ocr-tag="NOISE">Ph: {{ doctor.phone }}</span></div>
+      </div>
+    </div>
+
+    <div class="inv-badge">CONSULTATION RECEIPT / TAX INVOICE</div>
+    <div style="display:flex; justify-content:space-between; font-size:15px; line-height:1.65; margin-bottom:14px;">
+      <div>
+        <div><strong>Received From:</strong> <span data-ocr-tag="NOISE">{{ patient.name }}</span></div>
+        <div><strong>Patient UID:</strong> <span data-ocr-tag="NOISE">{{ patient.uid }}</span></div>
+      </div>
+      <div style="text-align:right;">
+        <div><strong>Receipt Date:</strong> <span data-ocr-tag="NOISE">{{ patient.visit_date }}</span></div>
+        <div><strong>Payment Mode:</strong> <span data-ocr-tag="NOISE">UPI / Cash</span></div>
+      </div>
+    </div>
+
+    <table class="bill-table">
+      <thead>
+        <tr>
+          <th style="width:10%;">Sr.</th>
+          <th style="width:68%;">Description of Clinic Services</th>
+          <th style="width:22%; text-align:right;">Amount (INR)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for b in hard_negative_content.bill_items %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td><span data-ocr-tag="NOISE">{{ b.item }}</span></td>
+          <td style="text-align:right;"><span data-ocr-tag="NOISE">Rs. {{ b.amount }}.00</span></td>
+        </tr>
+        {% endfor %}
+        <tr class="total-row">
+          <td colspan="2" style="text-align:right;">Total Paid</td>
+          <td style="text-align:right;"><span data-ocr-tag="NOISE">Rs. {{ hard_negative_content.total_inr }}.00</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:40px; text-align:right; font-size:14.5px;">
+      <div><strong>Authorized Signatory</strong></div>
+      <div style="margin-top:6px;"><span data-ocr-tag="NOISE">{{ doctor.clinic_name }}</span></div>
+    </div>
+  </div>
+  <div class="footer-bar">
+    <div><span data-ocr-tag="NOISE">Printed: {{ patient.generated_on }}</span></div>
+    <div>Computer Generated Receipt</div>
+    <div><span data-ocr-tag="NOISE">{{ doctor.emr_footer }}</span></div>
+  </div>
+</div>
+</body>
+</html>

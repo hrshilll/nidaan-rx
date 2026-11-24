@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1240px;
+    min-height: 1754px;
+    background: #ffffff;
+    color: #161616;
+    font-family: 'Noto Sans', 'Kohinoor Gujarati', 'Noto Sans Gujarati', 'Gujarati Sangam MN', 'Kohinoor Devanagari', 'Noto Sans Devanagari', 'Devanagari Sangam MN', 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    width: 1240px;
+    min-height: 1754px;
+    padding: 50px 56px 44px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #ffffff;
+  }
+
+  .lab-head { border-bottom: 3px solid #1e293b; padding-bottom: 14px; display: flex; justify-content: space-between; }
+  .lab-title { font-size: 24px; font-weight: 800; color: #1e293b; }
+  .pt-box { margin: 18px 0; padding: 14px 16px; border: 1px solid #94a3b8; display: flex; justify-content: space-between; font-size: 14.5px; line-height: 1.6; }
+  .report-banner { text-align: center; font-size: 17px; font-weight: 700; padding: 8px; background: #eef2f6; margin-bottom: 14px; letter-spacing: 1px; }
+  table.lab-table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+  table.lab-table th, table.lab-table td { border: 1px solid #94a3b8; padding: 10px 12px; text-align: left; }
+  table.lab-table th { background: #f1f5f9; }
+  .footer-bar { border-top: 1px solid #cbd5e1; padding-top: 10px; display: flex; justify-content: space-between; font-size: 13px; color: #475569; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div>
+    <div class="lab-head">
+      <div>
+        <div class="lab-title"><span data-ocr-tag="NOISE">APEX DIAGNOSTIC & PATHOLOGY LAB</span></div>
+        <div style="font-size:14px; margin-top:4px;"><span data-ocr-tag="NOISE">NABL Accredited Laboratory | Reg: {{ doctor.reg_no }}</span></div>
+      </div>
+      <div style="text-align:right; font-size:14px; line-height:1.45;">
+        <div><span data-ocr-tag="NOISE">{{ doctor.address_line1 }}</span></div>
+        <div><span data-ocr-tag="NOISE">{{ doctor.address_line2 }}</span></div>
+        <div><span data-ocr-tag="NOISE">Tel: {{ doctor.phone }}</span></div>
+      </div>
+    </div>
+
+    <div class="pt-box">
+      <div>
+        <div><strong>Patient Name:</strong> <span data-ocr-tag="NOISE">{{ patient.name }}</span></div>
+        <div><strong>Age / Gender:</strong> <span data-ocr-tag="NOISE">{{ patient.age }} / {{ patient.gender }}</span></div>
+        <div><strong>Ref. By:</strong> <span data-ocr-tag="NOISE">{{ doctor.name }}</span></div>
+      </div>
+      <div style="text-align:right;">
+        <div><strong>Lab ID:</strong> <span data-ocr-tag="NOISE">{{ patient.uid }}</span></div>
+        <div><strong>Sample Date:</strong> <span data-ocr-tag="NOISE">{{ patient.visit_date }}</span></div>
+        <div><strong>Contact:</strong> <span data-ocr-tag="NOISE">{{ patient.mobile }}</span></div>
+      </div>
+    </div>
+
+    <div class="report-banner">DEPARTMENT OF HEMATOLOGY & BIOCHEMISTRY — TEST REPORT</div>
+    <table class="lab-table">
+      <thead>
+        <tr>
+          <th style="width:42%;">Test Description</th>
+          <th style="width:18%;">Observed Value</th>
+          <th style="width:16%;">Unit</th>
+          <th style="width:24%;">Biological Reference Interval</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in hard_negative_content.lab_rows %}
+        <tr>
+          <td><span data-ocr-tag="NOISE">{{ row.test }}</span></td>
+          <td><strong><span data-ocr-tag="NOISE">{{ row.value }}</span></strong></td>
+          <td><span data-ocr-tag="NOISE">{{ row.unit }}</span></td>
+          <td><span data-ocr-tag="NOISE">{{ row.ref }}</span></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div style="margin-top:24px; font-size:13.5px; color:#334155;">
+      <span data-ocr-tag="NOISE">Note: Clinical correlation is strictly advised. This is a diagnostic laboratory report and not a medical prescription.</span>
+    </div>
+  </div>
+  <div class="footer-bar">
+    <div><span data-ocr-tag="NOISE">Reported On: {{ patient.generated_on }}</span></div>
+    <div>End of Report — Page 1</div>
+    <div><span data-ocr-tag="NOISE">Pathologist Verified</span></div>
+  </div>
+</div>
+</body>
+</html>

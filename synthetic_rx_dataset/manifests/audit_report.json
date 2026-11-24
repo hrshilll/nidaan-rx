@@ -1,0 +1,66 @@
+{
+  "audit_passed": true,
+  "elapsed_sec": 28.1,
+  "counts": {
+    "ground_truth_records": 5000,
+    "warped_records": 5000,
+    "hard_negatives": 250,
+    "splits": {
+      "train": 3500,
+      "test": 750,
+      "val": 750
+    },
+    "difficulty_tiers": {
+      "tier2_smartphone": 2750,
+      "tier3_hard": 1500,
+      "tier1_clean": 750
+    },
+    "languages": {
+      "en": 2250,
+      "en_gu": 1750,
+      "en_hi": 1000
+    },
+    "templates": {
+      "T2_modern_hospital": 940,
+      "T1_emr_bordered": 1673,
+      "T4_dense_derm": 718,
+      "T3_compact_a5": 941,
+      "HN_lab_report": 137,
+      "HN_clinic_bill": 113,
+      "T5_minimal_legacy": 478
+    },
+    "total_boxes": 322415,
+    "boxes_by_tag": {
+      "NOISE": 107004,
+      "BRAND": 24037,
+      "SALT": 27575,
+      "FREQ_NOTE": 29813,
+      "DOSE": 24037,
+      "FREQ": 42615,
+      "INSTR": 25891,
+      "DURATION": 25817,
+      "QTY": 15626
+    }
+  },
+  "paddleocr_split_counts": {
+    "train": 3500,
+    "val": 750,
+    "test": 750
+  },
+  "storage": {
+    "images_dir_mb": 1268.59,
+    "raw_renders_dir_mb": 755.82,
+    "avg_jpeg_kb": 259.8
+  },
+  "issues": {
+    "missing_warped": 0,
+    "extra_warped": 0,
+    "missing_jpegs": 0,
+    "corrupt_jpegs": 0,
+    "dim_mismatches": 0,
+    "split_leakage": 0,
+    "paddle_parse_errors": 0,
+    "bad_polygons": 0,
+    "empty_transcriptions": 0
+  }
+}

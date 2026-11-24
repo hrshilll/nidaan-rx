@@ -8,36 +8,54 @@ from sklearn.preprocessing import LabelEncoder
 from PIL import Image
 from paddleocr import PaddleOCR
 from thefuzz import process
+import os
 import warnings
 warnings.filterwarnings('ignore')
 
 # ==========================================
 # 1. PAGE CONFIG & ADAPTIVE CSS
 # ==========================================
-st.set_page_config(page_title="PRISM-Rx", page_icon="💊", layout="wide")
+st.set_page_config(page_title="Nidaan-Rx", page_icon="💊", layout="centered")
 
 st.markdown("""
     <style>
+    /* Layout: narrow column for readability */
+    .block-container { max-width: 960px; padding-top: 2.5rem; padding-bottom: 4rem; }
+    footer { visibility: hidden; }
+
+    /* Header */
+    .nx-title { font-size: 1.9rem; font-weight: 700; letter-spacing: -0.02em; margin: 0; color: var(--text-color); }
+    .nx-sub   { font-size: 1rem; opacity: 0.65; margin: 0.25rem 0 1.75rem 0; color: var(--text-color); }
+
+    /* Tabs: plain text with an underline for the active one */
+    .stTabs [data-baseweb="tab-list"] { gap: 1.75rem; border-bottom: 1px solid rgba(128,128,128,0.25); }
+    .stTabs [data-baseweb="tab"] { padding: 0.6rem 0; background: transparent; font-weight: 500; }
+    .stTabs [data-baseweb="tab-panel"] { padding-top: 1.5rem; }
+
+    /* Buttons: quiet, no lift or shadow */
     .stButton > button {
         border-radius: 8px !important;
-        border: 1px solid var(--primary-color) !important;
-        transition: all 0.2s ease-in-out !important;
+        border: 1px solid rgba(128,128,128,0.35) !important;
+        transition: border-color 0.15s ease-in-out !important;
     }
-    .stButton > button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2) !important;
-    }
-    .stTextInput>div>div>input, .stSelectbox>div>div>div, .stNumberInput>div>div>input {
-        border-radius: 8px !important;
-    }
-    [data-testid="stMetric"] {
-        background-color: var(--secondary-background-color);
-        padding: 15px;
-        border-radius: 10px;
-        text-align: center;
-        border: 1px solid rgba(128, 128, 128, 0.2);
-    }
-    hr { border-top: 2px solid var(--secondary-background-color) !important; }
+    .stButton > button:hover { border-color: var(--primary-color) !important; }
+    .stButton > button[kind="primary"] { border-color: var(--primary-color) !important; }
+
+    /* Inputs */
+    .stTextInput>div>div>input, .stSelectbox>div>div>div, .stNumberInput>div>div>input { border-radius: 8px !important; }
+
+    /* Metrics: flat and left-aligned instead of boxed cards */
+    [data-testid="stMetric"] { background: transparent; padding: 0; border: none; text-align: left; }
+    [data-testid="stMetricLabel"] { opacity: 0.65; font-size: 0.8rem; }
+    [data-testid="stMetricValue"] { font-size: 1.3rem; font-weight: 600; }
+
+    /* Bordered containers */
+    [data-testid="stVerticalBlockBorderWrapper"] { border-radius: 10px; }
+
+    /* Section headings */
+    h3 { font-size: 1.25rem !important; font-weight: 600 !important; margin-bottom: 0.1rem !important; }
+    h4 { font-size: 1.05rem !important; font-weight: 600 !important; }
+    hr { border-top: 1px solid rgba(128,128,128,0.2) !important; margin: 1.5rem 0 !important; }
     </style>
 """, unsafe_allow_html=True)
 
@@ -83,10 +101,7 @@ df_comm, df_pmbjp, available_salts = load_data()
 
 @st.cache_resource
 def load_ocr_model():
-    """Loads PaddleOCR into memory once."""
     return PaddleOCR(use_angle_cls=True, lang='en')
-
-
 
 ocr_model = load_ocr_model()
 
@@ -119,37 +134,107 @@ def check_safety_gates(target_entities_json, pmbjp_entities_json, target_vehicle
                 if s1 != s2:
                     return False, f"Dosage Mismatch"
 
-    # Allow "ANY" vehicle to bypass the vehicle safety gate for the OCR scanner
     if target_vehicle != "ANY" and target_vehicle.upper() != pmbjp_vehicle.upper():
         return True, f"⚠️ Vehicle Mismatch ({target_vehicle} vs {pmbjp_vehicle})"
 
     return True, "✅ Exact Clinical Match"
 
-def scan_pmbjp(entities_json, vehicle, comm_price=0.0):
-    results_found = False
+# ==========================================
+# 5. REINFORCEMENT LEARNING ENGINE
+# ==========================================
+RL_FILE = "data/processed/rl_q_table.json"
+
+def load_q_table():
+    if os.path.exists(RL_FILE):
+        with open(RL_FILE, "r") as f:
+            return json.load(f)
+    return {}
+
+def update_q_table(drug_code, reward=1.0):
+    q_table = load_q_table()
+    if drug_code not in q_table:
+        q_table[drug_code] = 0.0
+    # Q-Learning Bellman equation simplification (alpha = 0.1)
+    q_table[drug_code] = q_table[drug_code] + 0.1 * (reward - q_table[drug_code])
+    
+    with open(RL_FILE, "w") as f:
+        json.dump(q_table, f)
+
+# Handling the button click to train the RL Agent
+if 'rl_feedback_given' not in st.session_state:
+    st.session_state.rl_feedback_given = False
+
+def handle_rl_click(drug_code, drug_name):
+    update_q_table(drug_code, reward=1.0)
+    st.session_state.rl_feedback_given = True
+    st.toast(f"Saved your choice: {drug_name}", icon="✅")
+
+def scan_pmbjp(entities_json, vehicle, comm_price=0.0, key_prefix=""):
+    safe_matches = []
+    
+    # 1. Find all safe matches
     for _, generic in df_pmbjp.iterrows():
         is_safe, msg = check_safety_gates(entities_json, generic['parsed_entities'], vehicle, generic['vehicle'])
         if is_safe:
-            results_found = True
             gov_price = float(generic['MRP'])
             savings = comm_price - gov_price if comm_price > 0 else 0
+            safe_matches.append({
+                "code": str(generic['Drug Code']),
+                "name": generic['Generic Name'],
+                "price": gov_price,
+                "savings": savings,
+                "comm_price": comm_price,
+                "msg": msg
+            })
             
-            col1, col2, col3 = st.columns([2, 1, 1])
+    if not safe_matches:
+        return False
+        
+    # 2. RL Ranking (Epsilon-Greedy Strategy)
+    q_table = load_q_table()
+    
+    # Epsilon = 0.1 means 10% of the time, the RL agent explores by randomizing the list
+    # 90% of the time, it exploits its knowledge and sorts by the highest Q-value
+    if np.random.rand() < 0.1:
+        st.caption("Showing a varied order this time to learn your preferences.")
+        np.random.shuffle(safe_matches)
+    else:
+        # Sort by Q-Value (default 0.0 if unseen), then by price ascending
+        safe_matches = sorted(safe_matches, key=lambda x: (q_table.get(x['code'], 0.0), -x['price']), reverse=True)
+
+    st.caption(f"{len(safe_matches)} matching generic{'s' if len(safe_matches) != 1 else ''} found")
+
+    # 3. Display Results
+    for match in safe_matches:
+        q_score = q_table.get(match['code'], 0.0)
+        with st.container(border=True):
+            col1, col2, col3, col4 = st.columns([3, 1.2, 1.2, 1.3])
             with col1:
-                st.markdown(f"**{generic['Generic Name']}**")
-                st.caption(f"Code: `{generic['Drug Code']}` | {msg}")
+                st.markdown(f"**{match['name']}**")
+                st.caption(f"Code `{match['code']}`  |  Preference score {q_score:.3f}")
+                st.caption(match['msg'])
             with col2:
-                st.metric("Gov Price", f"₹{gov_price:.2f}")
+                st.metric("Gov price", f"₹{match['price']:.2f}")
             with col3:
-                if comm_price > 0:
-                    st.metric("Savings", f"₹{savings:.2f}", f"{(savings/comm_price)*100:.0f}%", delta_color="normal")
+                if match['comm_price'] > 0:
+                    st.metric("You save", f"₹{match['savings']:.2f}", f"{(match['savings']/match['comm_price'])*100:.0f}%", delta_color="normal")
                 else:
-                    st.metric("Savings", "-", "N/A", delta_color="off")
-            st.write("") 
-    return results_found
+                    st.metric("You save", "—")
+            with col4:
+                # The feedback button that triggers the RL reward
+                st.button(
+                    "Select",
+                    key=f"btn_{key_prefix}{match['code']}",
+                    on_click=handle_rl_click,
+                    args=(match['code'], match['name']),
+                    help="Marks this formulation as your pick so similar results rank higher next time.",
+                    use_container_width=True
+                )
+        
+    return True
 
 # ==========================================
-# 5. DEEP LEARNING MODEL (SYMPTOM CHECKER)
+# 6. DEEP LEARNING MODEL (SYMPTOM CHECKER)
 # ==========================================
 class PrismMultiTaskDNN(nn.Module):
     def __init__(self, input_size, num_components, num_vehicles):
@@ -243,69 +328,85 @@ def load_and_train_dl_model():
     return model, le_cond, le_skin, le_comp, le_veh, conditions, skin_types
 
 if df_comm.empty:
-    st.error("Data files not found.")
+    st.error("Data files not found. Add `1mg_dermatology_parsed.csv` and `pmbjp_dermatology_parsed.csv` to `data/processed/`, then reload.")
     st.stop()
 
 dl_model, le_cond, le_skin, le_comp, le_veh, all_conditions, all_skins = load_and_train_dl_model()
 
 # ==========================================
-# 6. UI LAYOUT & TABS
+# 7. UI LAYOUT & TABS
 # ==========================================
-st.markdown("<h1 style='text-align: center; color: var(--text-color);'>⚡ PRISM-Rx</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; font-size: 1.2rem; color: var(--text-color);'>Clinical Decision Support & Generic Substitution Engine</p>", unsafe_allow_html=True)
-st.markdown("<br>", unsafe_allow_html=True)
+st.markdown(
+    "<div class='nx-title'>Nidaan-Rx</div>"
+    "<div class='nx-sub'>Clinical decision support and generic substitution</div>",
+    unsafe_allow_html=True
+)
 
-tab1, tab2, tab3, tab4 = st.tabs(["🤖 Symptom Checker (AI)", "🔍 Brand Search", "🧪 Manual Entry", "📸 OCR Scan"])
+tab1, tab2, tab3, tab4 = st.tabs(["Symptom checker", "Brand search", "Manual entry", "Scan label"])
 
 # ----------------- TAB 1: SYMPTOM CHECKER (DEEP LEARNING) -----------------
 with tab1:
-    st.markdown("### Deep Learning Symptom Analysis")
-    st.caption("PyTorch Multi-Task Neural Network predicts the optimal Active Ingredient and Vehicle.")
-    
-    col1, col2, col3 = st.columns(3)
+    st.markdown("### Symptom checker")
+    st.caption("A neural network suggests an active ingredient and form. Use it as a starting point, not a prescription.")
+
+    col1, col2 = st.columns(2)
     with col1:
-        cond_input = st.selectbox("Diagnosis / Condition", sorted(all_conditions))
+        cond_input = st.selectbox("Condition", sorted(all_conditions))
     with col2:
-        skin_input = st.selectbox("Skin Type", sorted(all_skins))
-    with col3:
-        sev_input = st.slider("Severity Level (1 = Mild, 10 = Severe)", 1, 10, 5)
-        
-    if st.button("Predict Treatment (AI)", type="primary", key="btn_ai"):
-        c_enc = le_cond.transform([cond_input])[0]
-        s_enc = le_skin.transform([skin_input])[0]
-        sev_norm = sev_input / 10.0
-        
+        skin_input = st.selectbox("Skin type", sorted(all_skins))
+    sev_input = st.slider("Severity (1 = mild, 10 = severe)", 1, 10, 5)
+
+    if st.button("Suggest treatment", type="primary", key="btn_ai"):
+        st.session_state.t1 = {"cond": cond_input, "skin": skin_input, "sev": sev_input}
+
+    q1 = st.session_state.get("t1")
+    if q1:
+        c_enc = le_cond.transform([q1["cond"]])[0]
+        s_enc = le_skin.transform([q1["skin"]])[0]
+        sev_norm = q1["sev"] / 10.0
+
         input_tensor = torch.tensor([[c_enc, s_enc, sev_norm]], dtype=torch.float32)
-        
+
         dl_model.eval()
         with torch.no_grad():
             comp_out, veh_out = dl_model(input_tensor)
             pred_comp = le_comp.inverse_transform([torch.argmax(comp_out).item()])[0]
             pred_veh = le_veh.inverse_transform([torch.argmax(veh_out).item()])[0]
-            
+
         st.markdown("---")
-        
-        col_res1, col_res2 = st.columns(2)
-        col_res1.success(f"**Predicted Active Ingredient:**\n### {pred_comp.title()}")
-        col_res2.success(f"**Predicted Form Factor (Vehicle):**\n### {pred_veh.upper()}")
-        
-        st.info("### 📋 Application Instructions (Posology)\n" + POSOLOGY_GUIDE.get(pred_comp, "Apply as directed by physician."))
-        
-        st.markdown("### 🛒 Recommended Jan Aushadhi Matches")
+        st.caption(f"Results for: {q1['cond']}, {q1['skin'].lower()} skin, severity {q1['sev']}/10")
+
+        with st.container(border=True):
+            col_res1, col_res2 = st.columns(2)
+            col_res1.metric("Active ingredient", pred_comp.title())
+            col_res2.metric("Form", pred_veh.upper())
+
+        with st.expander("How to apply", expanded=True):
+            st.markdown(POSOLOGY_GUIDE.get(pred_comp, "Apply as directed by physician."))
+
+        st.markdown("#### Jan Aushadhi matches")
         entities_json = json.dumps([{"salt": pred_comp.lower(), "strength": "N/A"}])
-        
-        found = scan_pmbjp(entities_json, pred_veh)
+
+        found = scan_pmbjp(entities_json, pred_veh, key_prefix="t1_")
         if not found:
-            st.warning(f"AI predicted '{pred_comp.title()} {pred_veh.upper()}', but no direct PMBJP generic match was found in the government inventory.")
-            
-        st.caption("⚠️ AI Prediction Disclaimer: Always consult a registered dermatologist before dispensing medication.")
+            st.warning(f"The model suggested {pred_comp.title()} ({pred_veh.upper()}), but there is no direct PMBJP generic for it in the government inventory.")
+
+        st.caption("AI suggestion only. Consult a registered dermatologist before dispensing medication.")
+    else:
+        st.caption("Pick a condition, skin type and severity, then select Suggest treatment.")
 
 # ----------------- TAB 2: BRAND SEARCH -----------------
 with tab2:
-    st.markdown("### Search Commercial Medicine")
+    st.markdown("### Brand search")
+    st.caption("Find Jan Aushadhi generics for a branded medicine.")
+
     drug_list = [""] + list(df_comm['display_name'].unique())
-    selected_drug = st.selectbox("Type to search branded medicine (e.g., Candid):", options=drug_list)
-    
+    selected_drug = st.selectbox(
+        "Branded medicine",
+        options=drug_list,
+        format_func=lambda x: "Search by name, e.g. Candid" if x == "" else x
+    )
+
     if selected_drug:
         target = df_comm[df_comm['display_name'] == selected_drug].iloc[0]
         try:
@@ -313,120 +414,140 @@ with tab2:
         except:
             comm_price = 0.0
 
-        st.info(f"**Target:** {target['product_name']} | **MRP:** ₹{comm_price} | **Base:** {target['vehicle']}")
-        
-        if st.button("Find Jan Aushadhi Match", key="btn_brand"):
+        with st.container(border=True):
+            m1, m2, m3 = st.columns([2, 1, 1])
+            m1.metric("Medicine", target['product_name'])
+            m2.metric("MRP", f"₹{comm_price:,.2f}")
+            m3.metric("Form", target['vehicle'])
+
+        if st.button("Find generic alternatives", type="primary", key="btn_brand"):
+            st.session_state.t2 = selected_drug
+
+        if st.session_state.get("t2") == selected_drug:
             st.markdown("---")
-            st.markdown("### 💊 Safe Generic Alternatives")
-            if not scan_pmbjp(target['parsed_entities'], target['vehicle'], comm_price):
-                st.error("No safe Jan Aushadhi matches found for this exact formulation.")
+            st.markdown("#### Safe generic alternatives")
+            if not scan_pmbjp(target['parsed_entities'], target['vehicle'], comm_price, key_prefix="t2_"):
+                st.error("No safe Jan Aushadhi match exists for this exact formulation.")
+    else:
+        st.caption("Select a medicine to see its price and generic alternatives.")
 
 # ----------------- TAB 3: MANUAL ENTRY -----------------
 with tab3:
-    st.markdown("### Manual Composition Entry")
-    col1, col2 = st.columns(2)
+    st.markdown("### Manual entry")
+    st.caption("Enter an active ingredient, strength and form to look up generics.")
+
+    col1, col2, col3 = st.columns([2, 1, 1])
     with col1:
         salt_options = [""] + available_salts
-        salt_name = st.selectbox("Select Active Ingredient", options=salt_options)
+        salt_name = st.selectbox(
+            "Active ingredient",
+            options=salt_options,
+            format_func=lambda x: "Select an ingredient" if x == "" else x
+        )
     with col2:
-        strength = st.text_input("Strength (e.g., 1% or N/A)", value="N/A")
-        
-    vehicle = st.selectbox("Vehicle / Form Factor", ["CREAM", "OINTMENT", "GEL", "LOTION", "POWDER", "SHAMPOO", "SOAP"])
-    
-    if st.button("Search Generics", key="btn_manual"):
-        if salt_name:
+        strength = st.text_input("Strength", value="N/A", help="For example 1% or N/A")
+    with col3:
+        vehicle = st.selectbox("Form", ["CREAM", "OINTMENT", "GEL", "LOTION", "POWDER", "SHAMPOO", "SOAP", "TABLET/CAPSULE", "ANY"])
+
+    if st.button("Search generics", type="primary", key="btn_manual"):
+        st.session_state.t3 = {"salt": salt_name, "strength": strength, "vehicle": vehicle}
+
+    q3 = st.session_state.get("t3")
+    if q3:
+        if q3["salt"]:
             st.markdown("---")
-            entities = json.dumps([{"salt": salt_name.lower().strip(), "strength": strength.strip()}])
-            if not scan_pmbjp(entities, vehicle):
-                st.error("No safe matches found.")
+            entities = json.dumps([{"salt": q3["salt"].lower().strip(), "strength": q3["strength"].strip()}])
+            if not scan_pmbjp(entities, q3["vehicle"], key_prefix="t3_"):
+                st.error("No safe matches found. Try a different strength or form.")
         else:
-            st.warning("Please select a salt name from the dropdown.")
+            st.warning("Select an active ingredient to search.")
 
 # ----------------- TAB 4: OCR (AI VISION) -----------------
 with tab4:
-    st.markdown("### 👁️ AI Prescription & Medicine Scanner")
-    st.caption("Upload a photo of a branded medicine box or a printed prescription. The AI will extract the text, autocorrect typos, and find the Jan Aushadhi generic equivalent.")
-    
-    uploaded_file = st.file_uploader("Upload Image (JPG/PNG)", type=['jpg', 'jpeg', 'png'])
-    
-    if uploaded_file is not None:
-        # Convert uploaded file to a format PaddleOCR can read
+    st.markdown("### Scan label")
+    st.caption("Upload a photo of a medicine box or printed prescription. Text is read from the image, typos are corrected, and generic equivalents are shown.")
+
+    uploaded_file = st.file_uploader("Upload image (JPG or PNG)", type=['jpg', 'jpeg', 'png'], label_visibility="collapsed")
+
+    if uploaded_file is None:
+        st.caption("Upload a clear, well-lit photo with the medicine name visible.")
+    else:
         image = Image.open(uploaded_file).convert('RGB')
         img_array = np.array(image)
         
-        col_img, col_res = st.columns([1, 1])
+        col_img, col_res = st.columns([1, 1.4])
         with col_img:
-            st.image(image, caption="Uploaded Document", use_container_width=True)
+            st.image(image, caption="Uploaded document", use_container_width=True)
             
         with col_res:
-            with st.spinner("🧠 Initializing Neural Vision Network & Scanning..."):
-                try:
-                    result = ocr_model.predict(img_array)
-                except:
-                    result = ocr_model.ocr(img_array, cls=True)
-                
-            if not result:
-                st.error("❌ No text detected in the image.")
+            # Run OCR once per uploaded file so selecting a result doesn't re-scan the image
+            file_key = f"{uploaded_file.name}-{uploaded_file.size}"
+            if st.session_state.get("ocr_key") != file_key:
+                with st.spinner("Reading text from image..."):
+                    try:
+                        result = ocr_model.predict(img_array)
+                    except:
+                        result = ocr_model.ocr(img_array, cls=True)
+
+                texts = []
+                if result:
+                    for res in result:
+                        if hasattr(res, 'keys') or isinstance(res, dict):
+                            if 'rec_texts' in res:
+                                texts.extend(res['rec_texts'])
+                            elif 'rec_text' in res:
+                                texts.append(res['rec_text'])
+                        elif hasattr(res, 'rec_texts'):
+                            texts.extend(res.rec_texts)
+                        else:
+                            try:
+                                for line in res:
+                                    texts.append(line[1][0])
+                            except:
+                                pass
+                st.session_state.ocr_key = file_key
+                st.session_state.ocr_empty = not result
+                st.session_state.ocr_texts = texts
+
+            extracted_texts = st.session_state.ocr_texts
+
+            if st.session_state.ocr_empty:
+                st.error("No text detected. Try a sharper or better-lit photo.")
             else:
-                extracted_texts = []
-                for res in result:
-                    if hasattr(res, 'keys') or isinstance(res, dict):
-                        if 'rec_texts' in res:
-                            extracted_texts.extend(res['rec_texts'])
-                        elif 'rec_text' in res:
-                            extracted_texts.append(res['rec_text'])
-                    elif hasattr(res, 'rec_texts'):
-                        extracted_texts.extend(res.rec_texts)
-                    else:
-                        try:
-                            for line in res:
-                                extracted_texts.append(line[1][0])
-                        except:
-                            pass
-                
-                # UI FIX: Hide the raw text dump inside an expander
-                with st.expander("🔍 View Raw OCR Text (For Debugging)", expanded=False):
+                with st.expander("Raw text from image", expanded=False):
                     st.write(extracted_texts)
                 
-                st.markdown("#### 🧠 AI Analysis & Matching")
                 found_valid_drug = False
                 
-                # NLP FILTER: Only look at lines that might actually be medicines
-                # We look for common medical keywords or chemical strings
                 medical_keywords = ['cream', 'gel', 'ointment', 'lotion', 'shampoo', 'tablet', 'capsule', 'acid', 'mg', '%', 'w/w']
                 
                 potential_meds = []
                 for text in extracted_texts:
                     text_lower = text.lower()
-                    # Keep the line if it contains a medical keyword or is all uppercase (often used for brand names on scripts)
                     if any(kw in text_lower for kw in medical_keywords) or (text.isupper() and len(text) > 4):
                         potential_meds.append(text)
 
                 if not potential_meds:
-                    # If the filter is too strict, fall back to checking everything
                     potential_meds = extracted_texts
 
-                # Scan filtered text against our known active ingredients database
                 identified_drugs = []
                 for text in potential_meds:
                     if len(text) > 4: 
                         best_match, confidence = process.extractOne(text.title(), available_salts)
                         
-                        # We use 85% to prevent hallucinating wrong drugs from random text
                         if confidence >= 85 and best_match not in [d['name'] for d in identified_drugs]:
                             identified_drugs.append({"name": best_match, "confidence": confidence, "raw": text})
                             
                 if identified_drugs:
                     found_valid_drug = True
                     for drug in identified_drugs:
-                        st.success(f"**Identified Active Ingredient:** {drug['name']} *(Confidence: {drug['confidence']}%)*")
+                        st.markdown(f"#### {drug['name']}")
+                        st.caption(f"Identified active ingredient, {drug['confidence']}% confidence")
                         
                         entities_json = json.dumps([{"salt": drug['name'].lower(), "strength": "N/A"}])
                         
-                        # We pass "ANY" for the vehicle to cast a wide net on the OCR results
-                        with st.container():
-                            scan_pmbjp(entities_json, vehicle="ANY")
-                            st.markdown("---")
+                        scan_pmbjp(entities_json, vehicle="ANY", key_prefix=f"t4_{drug['name']}_")
+                        st.markdown("---")
                 
                 if not found_valid_drug:
-                    st.warning("No dermatology active ingredients recognized in this image. Ensure the medicine name is clearly visible.")
+                    st.warning("No dermatology active ingredient recognized. Make sure the medicine name is clearly visible.")

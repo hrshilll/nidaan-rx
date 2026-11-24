@@ -35,8 +35,10 @@ VEHICLE_MAP = {
     "LOTION": ["lotion", "lot", "solution", "soln", "topical solution"],
     "POWDER": ["powder", "dusting powder"],
     "SOAP": ["soap", "bar"],
-    "SHAMPOO": ["shampoo", "scalp"]
+    "SHAMPOO": ["shampoo", "scalp"],
+    "TABLET/CAPSULE": ["tablet", "tablets", "tab", "capsule", "capsules", "cap", "softgel", "pill"]
 }
+
 
 # Words that get stuck inside the PMBJP generic names that we MUST delete
 VEHICLE_WORDS = [
