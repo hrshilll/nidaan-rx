@@ -1,4 +1,4 @@
-# --- Virtual Environments & Python ---
+# Python
 .venv/
 venv/
 env/
@@ -7,46 +7,61 @@ __pycache__/
 *.egg-info/
 .pytest_cache/
 .mypy_cache/
-.ipynb_checkpoints/
+.ruff_cache/
 
-# --- macOS & Editor ---
-.DS_Store
-.AppleDouble
-.LSOverride
-*.swp
+# Node / Next.js
+node_modules/
+**/node_modules/
+.next/
+**/.next/
+frontend/out/
+npm-debug.log*
 
-# --- Private Media & Real Patient Prescriptions (PII) ---
-Media/
+# Secrets & Env
+.env
+.env.*
+!.env.example
+data/.auth_secret
+*.pem
+*.key
 
-# --- Raw / Heavy Datasets ---
-data/raw/
-*.zip
-*.tar.gz
+# Local DBs & Uploads
+*.db
+*.sqlite
+*.sqlite3
+data/nidaan_v2_cases.db
+backend/uploads/
+uploads/
+tmp/
+temp/
 
-# --- Synthetic Rx Dataset (Keep only lightweight JSON audit/benchmark reports) ---
-synthetic_rx_dataset/images/
-synthetic_rx_dataset/raw_renders/
-synthetic_rx_dataset/paddleocr_labels/
-synthetic_rx_dataset/paddleocr_rec_crops/
-synthetic_rx_dataset/debug_boxes/
-synthetic_rx_dataset/debug_aug_boxes/
-synthetic_rx_dataset/manifests/*.jsonl
-synthetic_rx_dataset/manifests/*.csv
-rx_synth/previews/
+# Heavy Datasets & Embeddings
+synthetic_rx_dataset/
+data/raw/medicine_data.csv
+data/processed/v2_embeddings/
 
-# --- ML Checkpoints, Weights & Cached Embeddings (Task 2 / v2.0) ---
+# Model Weights (keep production v2 artifact tracked)
 *.pt
 *.pth
 *.ckpt
 *.onnx
 *.safetensors
 *.bin
-*.npy
-*.npz
-models/
-checkpoints/
-weights/
+*.h5
+*.tar.gz
+*.zip
+!backend/artifacts/
+!backend/artifacts/*
 
-# --- Secrets & Local Env ---
-.env
-.env.local
+# Local Media & Assistant Metadata
+Media/
+media/
+.gemini/
+CLAUDE.md
+
+# OS & Editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp

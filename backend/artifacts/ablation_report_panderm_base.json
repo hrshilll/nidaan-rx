@@ -1,0 +1,61 @@
+{
+  "backbone": "panderm_base",
+  "stages": [
+    {
+      "stage": "stage1_linear_baseline",
+      "trainable_params": 60751,
+      "train_sec": 8.54,
+      "calibrated_temperature": 0.6243,
+      "ood_threshold_95": 27.305,
+      "test_ood_flag_rate": 0.0464,
+      "tier1_acc": 0.6244,
+      "tier1_macro_f1": 0.3696,
+      "canonical_top1_acc": 0.5014,
+      "canonical_top3_acc": 0.7975,
+      "canonical_macro_f1": 0.2799,
+      "canonical_ece": 0.0446
+    },
+    {
+      "stage": "stage2_attention_mil",
+      "trainable_params": 356240,
+      "train_sec": 9.42,
+      "calibrated_temperature": 0.6254,
+      "ood_threshold_95": 26.904,
+      "test_ood_flag_rate": 0.0482,
+      "tier1_acc": 0.6263,
+      "tier1_macro_f1": 0.37,
+      "canonical_top1_acc": 0.5109,
+      "canonical_top3_acc": 0.8013,
+      "canonical_macro_f1": 0.289,
+      "canonical_ece": 0.0329
+    },
+    {
+      "stage": "stage3_adapter_hierarchical_focal",
+      "trainable_params": 752016,
+      "train_sec": 15.36,
+      "calibrated_temperature": 0.8121,
+      "ood_threshold_95": 22.536,
+      "test_ood_flag_rate": 0.0558,
+      "tier1_acc": 0.7862,
+      "tier1_macro_f1": 0.6672,
+      "canonical_top1_acc": 0.6935,
+      "canonical_top3_acc": 0.9007,
+      "canonical_macro_f1": 0.6103,
+      "canonical_ece": 0.0405
+    },
+    {
+      "stage": "stage4_multimodal_fusion",
+      "trainable_params": 1628049,
+      "train_sec": 22.73,
+      "calibrated_temperature": 0.8629,
+      "ood_threshold_95": 24.832,
+      "test_ood_flag_rate": 0.0511,
+      "tier1_acc": 0.7796,
+      "tier1_macro_f1": 0.6403,
+      "canonical_top1_acc": 0.6887,
+      "canonical_top3_acc": 0.9035,
+      "canonical_macro_f1": 0.5926,
+      "canonical_ece": 0.0499
+    }
+  ]
+}

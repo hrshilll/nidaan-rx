@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+/* Tokens from design-system/nidaan-rx/MASTER.md (ui-ux-pro-max) */
+:root {
+  --color-primary: #0891B2;
+  --color-primary-dark: #0E7490;
+  --color-secondary: #22D3EE;
+  --color-accent: #059669;
+  --color-accent-dark: #047857;
+  --color-background: #ECFEFF;
+  --color-canvas: #F3FAFC;
+  --color-foreground: #164E63;
+  --color-card: #FFFFFF;
+  --color-muted: #E8F1F6;
+  --color-muted-foreground: #475569;
+  --color-border: #CBEBF2;
+  --color-destructive: #DC2626;
+  --color-ring: #0891B2;
+}
+
+@theme inline {
+  --font-heading: var(--font-figtree), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-noto), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+}
+
+/* Visible accessible focus rings */
+:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 2px;
+}
+
+/* Hide scrollbars on compact horizontal mobile nav rails */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Soft depth card aligned with MASTER.md (clean light elevation, zero heavy neon) */
+.clinical-card {
+  background: var(--color-card);
+  border-radius: 22px;
+  border: 1px solid rgba(8, 145, 178, 0.14);
+  box-shadow:
+    -3px -3px 12px rgba(255, 255, 255, 0.9),
+    0 1px 2px rgba(22, 78, 99, 0.04),
+    0 12px 28px -12px rgba(8, 145, 178, 0.12);
+}
+
+input[type="range"].clinical-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 999px;
+  background: #DCECF1;
+  outline: none;
+}
+
+input[type="range"].clinical-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: #FFFFFF;
+  border: 2px solid #0891B2;
+  box-shadow: 0 2px 6px rgba(8, 145, 178, 0.25);
+  cursor: pointer;
+  transition: transform 150ms ease;
+}
+
+input[type="range"].clinical-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.08);
+}
+
+input[type="range"].clinical-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: #FFFFFF;
+  border: 2px solid #0891B2;
+  box-shadow: 0 2px 6px rgba(8, 145, 178, 0.25);
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #FFFFFF !important;
+  }
+  .clinical-card {
+    box-shadow: none !important;
+    border: 1px solid #CBD5E1 !important;
+    break-inside: avoid;
+  }
+}

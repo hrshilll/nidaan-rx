@@ -1,0 +1,1001 @@
+Condition,Skin_Type,Severity,Component,Vehicle
+Psoriasis,Oily,8,mometasone,OINTMENT
+Dandruff,Oily,7,ketoconazole,SHAMPOO
+Fungal Infection,Combination,7,ketoconazole,CREAM
+Eczema,Combination,8,clobetasol,LOTION
+Dandruff,Normal,8,ketoconazole,SHAMPOO
+Eczema,Dry,5,clobetasol,OINTMENT
+Fungal Infection,Normal,6,clotrimazole,CREAM
+Fungal Infection,Normal,5,clotrimazole,CREAM
+Acne,Normal,10,clindamycin,CREAM
+Dandruff,Normal,9,ketoconazole,SHAMPOO
+Acne,Combination,10,clindamycin,CREAM
+Psoriasis,Normal,3,salicylic acid,OINTMENT
+Psoriasis,Combination,4,salicylic acid,OINTMENT
+Acne,Combination,5,clindamycin,CREAM
+Eczema,Combination,5,clobetasol,LOTION
+Acne,Combination,2,clindamycin,CREAM
+Psoriasis,Oily,2,salicylic acid,OINTMENT
+Fungal Infection,Oily,10,ketoconazole,POWDER
+Dandruff,Dry,4,ketoconazole,SHAMPOO
+Psoriasis,Combination,7,mometasone,OINTMENT
+Psoriasis,Oily,8,mometasone,OINTMENT
+Eczema,Dry,1,hydrocortisone,OINTMENT
+Psoriasis,Dry,8,mometasone,OINTMENT
+Psoriasis,Dry,6,mometasone,OINTMENT
+Fungal Infection,Normal,6,clotrimazole,CREAM
+Dandruff,Combination,2,ketoconazole,SHAMPOO
+Fungal Infection,Normal,2,clotrimazole,CREAM
+Fungal Infection,Dry,4,clotrimazole,CREAM
+Psoriasis,Oily,8,mometasone,OINTMENT
+Dandruff,Normal,2,ketoconazole,SHAMPOO
+Dandruff,Normal,10,ketoconazole,SHAMPOO
+Acne,Normal,9,clindamycin,CREAM
+Dandruff,Combination,1,ketoconazole,SHAMPOO
+Acne,Combination,9,clindamycin,CREAM
+Acne,Normal,8,clindamycin,CREAM
+Eczema,Combination,1,hydrocortisone,LOTION
+Eczema,Combination,1,hydrocortisone,LOTION
+Eczema,Oily,10,clobetasol,LOTION
+Fungal Infection,Oily,7,ketoconazole,POWDER
+Acne,Normal,2,clindamycin,CREAM
+Acne,Normal,7,clindamycin,CREAM
+Dandruff,Combination,8,ketoconazole,SHAMPOO
+Eczema,Combination,1,hydrocortisone,LOTION
+Eczema,Oily,3,hydrocortisone,LOTION
+Acne,Oily,10,adapalene,GEL
+Eczema,Oily,10,clobetasol,LOTION
+Fungal Infection,Normal,3,clotrimazole,CREAM
+Acne,Normal,4,clindamycin,CREAM
+Dandruff,Combination,7,ketoconazole,SHAMPOO
+Dandruff,Combination,4,ketoconazole,SHAMPOO
+Dandruff,Normal,7,ketoconazole,SHAMPOO
+Eczema,Combination,6,clobetasol,LOTION
+Psoriasis,Dry,10,mometasone,OINTMENT
+Dandruff,Dry,9,ketoconazole,SHAMPOO
+Dandruff,Dry,4,ketoconazole,SHAMPOO
+Eczema,Normal,10,clobetasol,LOTION
+Psoriasis,Oily,7,mometasone,OINTMENT
+Acne,Oily,9,adapalene,GEL
+Eczema,Dry,9,clobetasol,OINTMENT
+Psoriasis,Oily,9,mometasone,OINTMENT
+Eczema,Combination,6,clobetasol,LOTION
+Eczema,Oily,5,clobetasol,LOTION
+Acne,Combination,10,clindamycin,CREAM
+Psoriasis,Normal,6,mometasone,OINTMENT
+Acne,Normal,1,clindamycin,CREAM
+Acne,Dry,4,clindamycin,CREAM
+Psoriasis,Dry,7,mometasone,OINTMENT
+Fungal Infection,Combination,1,clotrimazole,CREAM
+Dandruff,Oily,8,ketoconazole,SHAMPOO
+Acne,Combination,1,clindamycin,CREAM
+Fungal Infection,Dry,6,clotrimazole,CREAM
+Dandruff,Normal,1,ketoconazole,SHAMPOO
+Acne,Combination,2,clindamycin,CREAM
+Dandruff,Normal,10,ketoconazole,SHAMPOO
+Psoriasis,Combination,8,mometasone,OINTMENT
+Eczema,Oily,6,clobetasol,LOTION
+Dandruff,Normal,2,ketoconazole,SHAMPOO
+Eczema,Combination,1,hydrocortisone,LOTION
+Acne,Normal,6,clindamycin,CREAM
+Dandruff,Combination,4,ketoconazole,SHAMPOO
+Psoriasis,Combination,4,salicylic acid,OINTMENT
+Eczema,Dry,3,hydrocortisone,OINTMENT
+Eczema,Normal,7,clobetasol,LOTION
+Psoriasis,Oily,1,salicylic acid,OINTMENT
+Fungal Infection,Normal,1,clotrimazole,CREAM
+Eczema,Normal,9,clobetasol,LOTION
+Acne,Dry,7,clindamycin,CREAM
+Fungal Infection,Combination,7,ketoconazole,CREAM
+Psoriasis,Normal,10,mometasone,OINTMENT
+Acne,Normal,1,clindamycin,CREAM
+Fungal Infection,Oily,5,clotrimazole,POWDER
+Dandruff,Normal,7,ketoconazole,SHAMPOO
+Acne,Oily,3,adapalene,GEL
+Eczema,Normal,3,hydrocortisone,LOTION
+Psoriasis,Normal,6,mometasone,OINTMENT
+Acne,Normal,4,clindamycin,CREAM
+Eczema,Oily,8,clobetasol,LOTION
+Psoriasis,Dry,8,mometasone,OINTMENT
+Psoriasis,Dry,3,salicylic acid,OINTMENT
+Acne,Combination,9,clindamycin,CREAM
+Dandruff,Dry,2,ketoconazole,SHAMPOO
+Fungal Infection,Dry,3,clotrimazole,CREAM
+Dandruff,Oily,4,ketoconazole,SHAMPOO
+Acne,Normal,1,clindamycin,CREAM
+Dandruff,Normal,4,ketoconazole,SHAMPOO
+Eczema,Oily,1,hydrocortisone,LOTION
+Psoriasis,Combination,3,salicylic acid,OINTMENT
+Dandruff,Combination,6,ketoconazole,SHAMPOO
+Eczema,Combination,2,hydrocortisone,LOTION
+Dandruff,Dry,1,ketoconazole,SHAMPOO
+Psoriasis,Combination,1,salicylic acid,OINTMENT
+Dandruff,Normal,3,ketoconazole,SHAMPOO
+Psoriasis,Combination,1,salicylic acid,OINTMENT
+Acne,Normal,5,clindamycin,CREAM
+Eczema,Normal,9,clobetasol,LOTION
+Dandruff,Normal,1,ketoconazole,SHAMPOO
+Dandruff,Combination,3,ketoconazole,SHAMPOO
+Psoriasis,Oily,4,salicylic acid,OINTMENT
+Dandruff,Oily,7,ketoconazole,SHAMPOO
+Acne,Normal,3,clindamycin,CREAM
+Fungal Infection,Oily,10,ketoconazole,POWDER
+Fungal Infection,Combination,8,ketoconazole,CREAM
+Fungal Infection,Normal,6,clotrimazole,CREAM
+Fungal Infection,Combination,10,ketoconazole,CREAM
+Fungal Infection,Dry,1,clotrimazole,CREAM
+Acne,Oily,6,adapalene,GEL
+Dandruff,Dry,7,ketoconazole,SHAMPOO
+Fungal Infection,Combination,2,clotrimazole,CREAM
+Acne,Normal,10,clindamycin,CREAM
+Acne,Normal,4,clindamycin,CREAM
+Acne,Normal,3,clindamycin,CREAM
+Psoriasis,Dry,2,salicylic acid,OINTMENT
+Eczema,Oily,10,clobetasol,LOTION
+Dandruff,Dry,10,ketoconazole,SHAMPOO
+Fungal Infection,Dry,1,clotrimazole,CREAM
+Psoriasis,Dry,6,mometasone,OINTMENT
+Eczema,Normal,5,clobetasol,LOTION
+Acne,Normal,5,clindamycin,CREAM
+Psoriasis,Normal,5,salicylic acid,OINTMENT
+Psoriasis,Dry,4,salicylic acid,OINTMENT
+Eczema,Combination,8,clobetasol,LOTION
+Psoriasis,Normal,2,salicylic acid,OINTMENT
+Psoriasis,Dry,3,salicylic acid,OINTMENT
+Acne,Normal,3,clindamycin,CREAM
+Psoriasis,Dry,7,mometasone,OINTMENT
+Fungal Infection,Oily,10,ketoconazole,POWDER
+Dandruff,Dry,7,ketoconazole,SHAMPOO
+Acne,Normal,5,clindamycin,CREAM
+Acne,Dry,10,clindamycin,CREAM
+Acne,Combination,2,clindamycin,CREAM
+Acne,Normal,5,clindamycin,CREAM
+Acne,Normal,7,clindamycin,CREAM
+Dandruff,Dry,7,ketoconazole,SHAMPOO
+Eczema,Normal,10,clobetasol,LOTION
+Eczema,Oily,6,clobetasol,LOTION
+Acne,Oily,5,adapalene,GEL
+Acne,Dry,4,clindamycin,CREAM
+Dandruff,Normal,10,ketoconazole,SHAMPOO
+Fungal Infection,Normal,5,clotrimazole,CREAM
+Psoriasis,Oily,5,salicylic acid,OINTMENT
+Fungal Infection,Dry,6,clotrimazole,CREAM
+Dandruff,Normal,2,ketoconazole,SHAMPOO
+Psoriasis,Combination,10,mometasone,OINTMENT
+Fungal Infection,Combination,10,ketoconazole,CREAM
+Acne,Normal,5,clindamycin,CREAM
+Dandruff,Normal,8,ketoconazole,SHAMPOO
+Fungal Infection,Oily,4,clotrimazole,POWDER
+Psoriasis,Dry,3,salicylic acid,OINTMENT
+Psoriasis,Oily,1,salicylic acid,OINTMENT
+Dandruff,Combination,5,ketoconazole,SHAMPOO
+Psoriasis,Combination,1,salicylic acid,OINTMENT
+Acne,Normal,10,clindamycin,CREAM
+Eczema,Normal,2,hydrocortisone,LOTION
+Dandruff,Combination,2,ketoconazole,SHAMPOO
+Eczema,Combination,1,hydrocortisone,LOTION
+Fungal Infection,Normal,10,ketoconazole,CREAM
+Fungal Infection,Dry,2,clotrimazole,CREAM
+Eczema,Oily,7,clobetasol,LOTION
+Psoriasis,Dry,5,salicylic acid,OINTMENT
+Fungal Infection,Oily,8,ketoconazole,POWDER
+Psoriasis,Oily,5,salicylic acid,OINTMENT
+Dandruff,Oily,4,ketoconazole,SHAMPOO
+Fungal Infection,Oily,9,ketoconazole,POWDER
+Eczema,Oily,3,hydrocortisone,LOTION
+Psoriasis,Dry,1,salicylic acid,OINTMENT
+Dandruff,Normal,1,ketoconazole,SHAMPOO
+Dandruff,Combination,9,ketoconazole,SHAMPOO
+Eczema,Oily,1,hydrocortisone,LOTION
+Acne,Dry,4,clindamycin,CREAM
+Acne,Dry,3,clindamycin,CREAM
+Acne,Normal,9,clindamycin,CREAM
+Eczema,Normal,9,clobetasol,LOTION
+Psoriasis,Dry,4,salicylic acid,OINTMENT
+Eczema,Dry,5,clobetasol,OINTMENT
+Dandruff,Combination,9,ketoconazole,SHAMPOO
+Psoriasis,Combination,5,salicylic acid,OINTMENT
+Psoriasis,Oily,7,mometasone,OINTMENT
+Acne,Combination,5,clindamycin,CREAM
+Fungal Infection,Dry,7,ketoconazole,CREAM
+Fungal Infection,Oily,3,clotrimazole,POWDER
+Dandruff,Combination,2,ketoconazole,SHAMPOO
+Psoriasis,Oily,10,mometasone,OINTMENT
+Fungal Infection,Normal,1,clotrimazole,CREAM
+Dandruff,Dry,7,ketoconazole,SHAMPOO
+Dandruff,Normal,10,ketoconazole,SHAMPOO
+Acne,Dry,10,clindamycin,CREAM
+Fungal Infection,Oily,5,clotrimazole,POWDER
+Eczema,Normal,1,hydrocortisone,LOTION
+Psoriasis,Oily,7,mometasone,OINTMENT
+Acne,Oily,4,adapalene,GEL
+Psoriasis,Dry,3,salicylic acid,OINTMENT
+Dandruff,Normal,6,ketoconazole,SHAMPOO
+Eczema,Dry,10,clobetasol,OINTMENT
+Eczema,Combination,3,hydrocortisone,LOTION
+Dandruff,Oily,2,ketoconazole,SHAMPOO
+Psoriasis,Dry,10,mometasone,OINTMENT
+Psoriasis,Normal,8,mometasone,OINTMENT
+Dandruff,Combination,9,ketoconazole,SHAMPOO
+Acne,Combination,9,clindamycin,CREAM
+Psoriasis,Oily,9,mometasone,OINTMENT
+Acne,Dry,5,clindamycin,CREAM
+Fungal Infection,Normal,5,clotrimazole,CREAM
+Dandruff,Combination,5,ketoconazole,SHAMPOO
+Psoriasis,Combination,3,salicylic acid,OINTMENT
+Psoriasis,Oily,2,salicylic acid,OINTMENT
+Acne,Oily,1,adapalene,GEL
+Dandruff,Dry,6,ketoconazole,SHAMPOO
+Eczema,Normal,7,clobetasol,LOTION
+Acne,Combination,10,clindamycin,CREAM
+Psoriasis,Normal,5,salicylic acid,OINTMENT
+Fungal Infection,Normal,4,clotrimazole,CREAM
+Fungal Infection,Normal,10,ketoconazole,CREAM
+Psoriasis,Dry,5,salicylic acid,OINTMENT
+Acne,Normal,6,clindamycin,CREAM
+Acne,Oily,1,adapalene,GEL
+Dandruff,Normal,3,ketoconazole,SHAMPOO
+Dandruff,Dry,2,ketoconazole,SHAMPOO
+Eczema,Normal,5,clobetasol,LOTION
+Acne,Dry,10,clindamycin,CREAM
+Fungal Infection,Combination,5,clotrimazole,CREAM
+Acne,Dry,1,clindamycin,CREAM
+Fungal Infection,Normal,1,clotrimazole,CREAM
+Eczema,Oily,10,clobetasol,LOTION
+Acne,Dry,1,clindamycin,CREAM
+Dandruff,Oily,2,ketoconazole,SHAMPOO
+Acne,Combination,1,clindamycin,CREAM
+Dandruff,Normal,7,ketoconazole,SHAMPOO
+Psoriasis,Oily,5,salicylic acid,OINTMENT
+Dandruff,Dry,3,ketoconazole,SHAMPOO
+Dandruff,Combination,5,ketoconazole,SHAMPOO
+Dandruff,Oily,10,ketoconazole,SHAMPOO
+Fungal Infection,Combination,1,clotrimazole,CREAM
+Dandruff,Dry,9,ketoconazole,SHAMPOO
+Acne,Combination,4,clindamycin,CREAM
+Acne,Oily,8,adapalene,GEL
+Fungal Infection,Normal,8,ketoconazole,CREAM
+Fungal Infection,Dry,2,clotrimazole,CREAM
+Eczema,Combination,2,hydrocortisone,LOTION
+Psoriasis,Oily,6,mometasone,OINTMENT
+Psoriasis,Oily,9,mometasone,OINTMENT
+Acne,Normal,7,clindamycin,CREAM
+Dandruff,Oily,2,ketoconazole,SHAMPOO
+Eczema,Combination,7,clobetasol,LOTION
+Psoriasis,Dry,6,mometasone,OINTMENT
+Fungal Infection,Dry,2,clotrimazole,CREAM
+Eczema,Combination,2,hydrocortisone,LOTION
+Psoriasis,Oily,6,mometasone,OINTMENT
+Acne,Normal,7,clindamycin,CREAM
+Fungal Infection,Combination,1,clotrimazole,CREAM
+Dandruff,Oily,4,ketoconazole,SHAMPOO
+Fungal Infection,Normal,1,clotrimazole,CREAM
+Fungal Infection,Oily,4,clotrimazole,POWDER
+Dandruff,Dry,6,ketoconazole,SHAMPOO
+Dandruff,Dry,3,ketoconazole,SHAMPOO
+Acne,Combination,7,clindamycin,CREAM
+Eczema,Dry,8,clobetasol,OINTMENT
+Psoriasis,Normal,4,salicylic acid,OINTMENT
+Acne,Combination,3,clindamycin,CREAM
+Eczema,Oily,2,hydrocortisone,LOTION
+Dandruff,Dry,3,ketoconazole,SHAMPOO
+Eczema,Oily,5,clobetasol,LOTION
+Fungal Infection,Normal,10,ketoconazole,CREAM
+Dandruff,Dry,5,ketoconazole,SHAMPOO
+Acne,Oily,9,adapalene,GEL
+Psoriasis,Dry,2,salicylic acid,OINTMENT
+Acne,Dry,10,clindamycin,CREAM
+Dandruff,Combination,9,ketoconazole,SHAMPOO
+Fungal Infection,Oily,9,ketoconazole,POWDER
+Eczema,Combination,1,hydrocortisone,LOTION
+Fungal Infection,Normal,1,clotrimazole,CREAM
+Acne,Combination,4,clindamycin,CREAM
+Fungal Infection,Normal,7,ketoconazole,CREAM
+Fungal Infection,Oily,10,ketoconazole,POWDER
+Eczema,Normal,3,hydrocortisone,LOTION
+Eczema,Combination,7,clobetasol,LOTION
+Eczema,Combination,2,hydrocortisone,LOTION
+Fungal Infection,Dry,3,clotrimazole,CREAM
+Eczema,Combination,9,clobetasol,LOTION
+Dandruff,Normal,10,ketoconazole,SHAMPOO
+Acne,Oily,7,adapalene,GEL
+Fungal Infection,Dry,9,ketoconazole,CREAM
+Acne,Oily,4,adapalene,GEL
+Acne,Normal,10,clindamycin,CREAM
+Eczema,Oily,2,hydrocortisone,LOTION
+Psoriasis,Combination,6,mometasone,OINTMENT
+Fungal Infection,Combination,8,ketoconazole,CREAM
+Acne,Normal,3,clindamycin,CREAM
+Fungal Infection,Oily,5,clotrimazole,POWDER
+Psoriasis,Dry,2,salicylic acid,OINTMENT
+Eczema,Normal,6,clobetasol,LOTION
+Dandruff,Oily,1,ketoconazole,SHAMPOO
+Dandruff,Dry,5,ketoconazole,SHAMPOO
+Psoriasis,Dry,8,mometasone,OINTMENT
+Acne,Combination,3,clindamycin,CREAM
+Eczema,Combination,8,clobetasol,LOTION
+Dandruff,Normal,8,ketoconazole,SHAMPOO
+Fungal Infection,Normal,4,clotrimazole,CREAM
+Acne,Dry,8,clindamycin,CREAM
+Eczema,Dry,9,clobetasol,OINTMENT
+Fungal Infection,Combination,8,ketoconazole,CREAM
+Fungal Infection,Combination,5,clotrimazole,CREAM
+Fungal Infection,Dry,4,clotrimazole,CREAM
+Eczema,Normal,1,hydrocortisone,LOTION
+Psoriasis,Oily,1,salicylic acid,OINTMENT
+Fungal Infection,Dry,6,clotrimazole,CREAM
+Dandruff,Dry,4,ketoconazole,SHAMPOO
+Dandruff,Combination,3,ketoconazole,SHAMPOO
+Acne,Dry,2,clindamycin,CREAM
+Fungal Infection,Oily,7,ketoconazole,POWDER
+Fungal Infection,Normal,2,clotrimazole,CREAM
+Dandruff,Normal,2,ketoconazole,SHAMPOO
+Psoriasis,Oily,5,salicylic acid,OINTMENT
+Acne,Oily,9,adapalene,GEL
+Eczema,Combination,8,clobetasol,LOTION
+Eczema,Dry,1,hydrocortisone,OINTMENT
+Dandruff,Dry,2,ketoconazole,SHAMPOO
+Dandruff,Normal,9,ketoconazole,SHAMPOO
+Fungal Infection,Normal,3,clotrimazole,CREAM
+Eczema,Oily,8,clobetasol,LOTION
+Psoriasis,Normal,8,mometasone,OINTMENT
+Eczema,Oily,5,clobetasol,LOTION
+Psoriasis,Dry,3,salicylic acid,OINTMENT
+Dandruff,Oily,5,ketoconazole,SHAMPOO
+Eczema,Combination,10,clobetasol,LOTION
+Psoriasis,Oily,10,mometasone,OINTMENT
+Acne,Dry,8,clindamycin,CREAM
+Eczema,Oily,6,clobetasol,LOTION
+Acne,Combination,1,clindamycin,CREAM
+Acne,Oily,1,adapalene,GEL
+Fungal Infection,Dry,5,clotrimazole,CREAM
+Eczema,Combination,3,hydrocortisone,LOTION
+Eczema,Combination,3,hydrocortisone,LOTION
+Fungal Infection,Normal,4,clotrimazole,CREAM
+Dandruff,Oily,4,ketoconazole,SHAMPOO
+Eczema,Normal,6,clobetasol,LOTION
+Acne,Oily,5,adapalene,GEL
+Eczema,Combination,1,hydrocortisone,LOTION
+Psoriasis,Dry,2,salicylic acid,OINTMENT
+Fungal Infection,Oily,10,ketoconazole,POWDER
+Acne,Dry,6,clindamycin,CREAM
+Dandruff,Combination,4,ketoconazole,SHAMPOO
+Dandruff,Normal,4,ketoconazole,SHAMPOO
+Dandruff,Normal,5,ketoconazole,SHAMPOO
+Dandruff,Combination,4,ketoconazole,SHAMPOO
+Psoriasis,Oily,2,salicylic acid,OINTMENT
+Eczema,Combination,3,hydrocortisone,LOTION
+Eczema,Normal,4,hydrocortisone,LOTION
+Fungal Infection,Combination,5,clotrimazole,CREAM
+Psoriasis,Combination,10,mometasone,OINTMENT
+Fungal Infection,Dry,10,ketoconazole,CREAM
+Dandruff,Normal,2,ketoconazole,SHAMPOO
+Acne,Oily,8,adapalene,GEL
+Psoriasis,Combination,4,salicylic acid,OINTMENT
+Psoriasis,Oily,8,mometasone,OINTMENT
+Dandruff,Normal,10,ketoconazole,SHAMPOO
+Acne,Normal,10,clindamycin,CREAM
+Acne,Dry,3,clindamycin,CREAM
+Dandruff,Dry,8,ketoconazole,SHAMPOO
+Acne,Dry,7,clindamycin,CREAM
+Acne,Dry,5,clindamycin,CREAM
+Dandruff,Dry,4,ketoconazole,SHAMPOO
+Acne,Oily,6,adapalene,GEL
+Eczema,Normal,5,clobetasol,LOTION
+Acne,Oily,9,adapalene,GEL
+Fungal Infection,Normal,9,ketoconazole,CREAM
+Dandruff,Dry,9,ketoconazole,SHAMPOO
+Eczema,Combination,4,hydrocortisone,LOTION
+Acne,Dry,6,clindamycin,CREAM
+Fungal Infection,Combination,2,clotrimazole,CREAM
+Eczema,Dry,1,hydrocortisone,OINTMENT
+Eczema,Combination,3,hydrocortisone,LOTION
+Acne,Combination,4,clindamycin,CREAM
+Dandruff,Normal,1,ketoconazole,SHAMPOO
+Acne,Oily,6,adapalene,GEL
+Fungal Infection,Normal,2,clotrimazole,CREAM
+Dandruff,Oily,7,ketoconazole,SHAMPOO
+Acne,Normal,9,clindamycin,CREAM
+Acne,Normal,6,clindamycin,CREAM
+Psoriasis,Combination,8,mometasone,OINTMENT
+Acne,Combination,1,clindamycin,CREAM
+Dandruff,Dry,7,ketoconazole,SHAMPOO
+Eczema,Combination,8,clobetasol,LOTION
+Eczema,Dry,1,hydrocortisone,OINTMENT
+Dandruff,Oily,8,ketoconazole,SHAMPOO
+Eczema,Dry,1,hydrocortisone,OINTMENT
+Eczema,Combination,2,hydrocortisone,LOTION
+Fungal Infection,Dry,1,clotrimazole,CREAM
+Fungal Infection,Dry,6,clotrimazole,CREAM
+Eczema,Combination,4,hydrocortisone,LOTION
+Acne,Normal,7,clindamycin,CREAM
+Eczema,Normal,10,clobetasol,LOTION
+Fungal Infection,Combination,2,clotrimazole,CREAM
+Psoriasis,Oily,7,mometasone,OINTMENT
+Psoriasis,Normal,2,salicylic acid,OINTMENT
+Dandruff,Normal,1,ketoconazole,SHAMPOO
+Acne,Combination,3,clindamycin,CREAM
+Eczema,Combination,8,clobetasol,LOTION
+Acne,Combination,5,clindamycin,CREAM
+Eczema,Combination,1,hydrocortisone,LOTION
+Psoriasis,Combination,8,mometasone,OINTMENT
+Fungal Infection,Combination,8,ketoconazole,CREAM
+Eczema,Normal,4,hydrocortisone,LOTION
+Psoriasis,Oily,6,mometasone,OINTMENT
+Dandruff,Dry,7,ketoconazole,SHAMPOO
+Fungal Infection,Combination,10,ketoconazole,CREAM
+Acne,Combination,5,clindamycin,CREAM
+Eczema,Normal,3,hydrocortisone,LOTION
+Psoriasis,Oily,2,salicylic acid,OINTMENT
+Fungal Infection,Oily,5,clotrimazole,POWDER
+Psoriasis,Combination,10,mometasone,OINTMENT
+Fungal Infection,Combination,7,ketoconazole,CREAM
+Psoriasis,Normal,5,salicylic acid,OINTMENT
+Dandruff,Dry,9,ketoconazole,SHAMPOO
+Fungal Infection,Oily,3,clotrimazole,POWDER
+Psoriasis,Dry,6,mometasone,OINTMENT
+Psoriasis,Normal,1,salicylic acid,OINTMENT
+Fungal Infection,Dry,8,ketoconazole,CREAM
+Eczema,Dry,7,clobetasol,OINTMENT
+Acne,Dry,3,clindamycin,CREAM
+Acne,Dry,9,clindamycin,CREAM
+Fungal Infection,Oily,9,ketoconazole,POWDER
+Acne,Dry,6,clindamycin,CREAM
+Eczema,Dry,4,hydrocortisone,OINTMENT
+Fungal Infection,Dry,2,clotrimazole,CREAM
+Dandruff,Combination,6,ketoconazole,SHAMPOO
+Fungal Infection,Normal,5,clotrimazole,CREAM
+Fungal Infection,Normal,9,ketoconazole,CREAM
+Fungal Infection,Oily,5,clotrimazole,POWDER
+Acne,Dry,10,clindamycin,CREAM
+Psoriasis,Combination,5,salicylic acid,OINTMENT
+Fungal Infection,Dry,5,clotrimazole,CREAM
+Eczema,Oily,6,clobetasol,LOTION
+Eczema,Normal,2,hydrocortisone,LOTION
+Psoriasis,Oily,9,mometasone,OINTMENT
+Dandruff,Combination,10,ketoconazole,SHAMPOO
+Dandruff,Oily,10,ketoconazole,SHAMPOO
+Dandruff,Normal,10,ketoconazole,SHAMPOO
+Fungal Infection,Normal,6,clotrimazole,CREAM
+Eczema,Oily,3,hydrocortisone,LOTION
+Dandruff,Normal,3,ketoconazole,SHAMPOO
+Fungal Infection,Oily,5,clotrimazole,POWDER
+Eczema,Normal,4,hydrocortisone,LOTION
+Acne,Combination,7,clindamycin,CREAM
+Eczema,Dry,2,hydrocortisone,OINTMENT
+Dandruff,Normal,1,ketoconazole,SHAMPOO
+Fungal Infection,Normal,4,clotrimazole,CREAM
+Eczema,Combination,4,hydrocortisone,LOTION
+Eczema,Oily,2,hydrocortisone,LOTION
+Acne,Dry,2,clindamycin,CREAM
+Dandruff,Oily,9,ketoconazole,SHAMPOO
+Acne,Oily,9,adapalene,GEL
+Dandruff,Combination,8,ketoconazole,SHAMPOO
+Fungal Infection,Oily,7,ketoconazole,POWDER
+Eczema,Combination,2,hydrocortisone,LOTION
+Dandruff,Normal,3,ketoconazole,SHAMPOO
+Fungal Infection,Normal,3,clotrimazole,CREAM
+Dandruff,Normal,1,ketoconazole,SHAMPOO
+Dandruff,Oily,10,ketoconazole,SHAMPOO
+Acne,Combination,1,clindamycin,CREAM
+Psoriasis,Dry,8,mometasone,OINTMENT
+Eczema,Normal,5,clobetasol,LOTION
+Acne,Combination,5,clindamycin,CREAM
+Acne,Dry,9,clindamycin,CREAM
+Psoriasis,Combination,10,mometasone,OINTMENT
+Acne,Oily,10,adapalene,GEL
+Fungal Infection,Normal,7,ketoconazole,CREAM
+Acne,Combination,10,clindamycin,CREAM
+Dandruff,Dry,10,ketoconazole,SHAMPOO
+Dandruff,Combination,9,ketoconazole,SHAMPOO
+Eczema,Normal,8,clobetasol,LOTION
+Fungal Infection,Combination,7,ketoconazole,CREAM
+Dandruff,Dry,4,ketoconazole,SHAMPOO
+Eczema,Dry,10,clobetasol,OINTMENT
+Acne,Dry,8,clindamycin,CREAM
+Eczema,Normal,2,hydrocortisone,LOTION
+Eczema,Oily,8,clobetasol,LOTION
+Fungal Infection,Combination,7,ketoconazole,CREAM
+Psoriasis,Combination,8,mometasone,OINTMENT
+Acne,Normal,6,clindamycin,CREAM
+Acne,Oily,2,adapalene,GEL
+Acne,Normal,10,clindamycin,CREAM
+Psoriasis,Dry,2,salicylic acid,OINTMENT
+Eczema,Dry,2,hydrocortisone,OINTMENT
+Eczema,Combination,2,hydrocortisone,LOTION
+Eczema,Combination,7,clobetasol,LOTION
+Psoriasis,Oily,1,salicylic acid,OINTMENT
+Dandruff,Dry,5,ketoconazole,SHAMPOO
+Psoriasis,Oily,8,mometasone,OINTMENT
+Psoriasis,Combination,9,mometasone,OINTMENT
+Fungal Infection,Dry,9,ketoconazole,CREAM
+Psoriasis,Oily,1,salicylic acid,OINTMENT
+Acne,Combination,8,clindamycin,CREAM
+Fungal Infection,Normal,2,clotrimazole,CREAM
+Dandruff,Oily,1,ketoconazole,SHAMPOO
+Dandruff,Dry,9,ketoconazole,SHAMPOO
+Acne,Oily,8,adapalene,GEL
+Psoriasis,Normal,10,mometasone,OINTMENT
+Dandruff,Oily,5,ketoconazole,SHAMPOO
+Eczema,Normal,6,clobetasol,LOTION
+Eczema,Dry,2,hydrocortisone,OINTMENT
+Acne,Combination,4,clindamycin,CREAM
+Psoriasis,Combination,8,mometasone,OINTMENT
+Psoriasis,Oily,6,mometasone,OINTMENT
+Dandruff,Combination,10,ketoconazole,SHAMPOO
+Eczema,Dry,9,clobetasol,OINTMENT
+Fungal Infection,Oily,1,clotrimazole,POWDER
+Fungal Infection,Combination,8,ketoconazole,CREAM
+Dandruff,Oily,6,ketoconazole,SHAMPOO
+Acne,Oily,3,adapalene,GEL
+Psoriasis,Dry,1,salicylic acid,OINTMENT
+Dandruff,Combination,10,ketoconazole,SHAMPOO
+Eczema,Dry,2,hydrocortisone,OINTMENT
+Acne,Normal,3,clindamycin,CREAM
+Eczema,Dry,8,clobetasol,OINTMENT
+Dandruff,Combination,9,ketoconazole,SHAMPOO
+Acne,Normal,5,clindamycin,CREAM
+Fungal Infection,Combination,9,ketoconazole,CREAM
+Eczema,Combination,9,clobetasol,LOTION
+Eczema,Oily,2,hydrocortisone,LOTION
+Psoriasis,Dry,9,mometasone,OINTMENT
+Acne,Oily,2,adapalene,GEL
+Psoriasis,Combination,6,mometasone,OINTMENT
+Eczema,Oily,10,clobetasol,LOTION
+Fungal Infection,Dry,5,clotrimazole,CREAM
+Psoriasis,Normal,5,salicylic acid,OINTMENT
+Dandruff,Oily,2,ketoconazole,SHAMPOO
+Dandruff,Normal,3,ketoconazole,SHAMPOO
+Fungal Infection,Combination,8,ketoconazole,CREAM
+Fungal Infection,Normal,1,clotrimazole,CREAM
+Eczema,Normal,8,clobetasol,LOTION
+Psoriasis,Oily,9,mometasone,OINTMENT
+Dandruff,Combination,9,ketoconazole,SHAMPOO
+Dandruff,Dry,4,ketoconazole,SHAMPOO
+Eczema,Dry,7,clobetasol,OINTMENT
+Dandruff,Combination,10,ketoconazole,SHAMPOO
+Acne,Combination,7,clindamycin,CREAM
+Fungal Infection,Dry,5,clotrimazole,CREAM
+Fungal Infection,Normal,2,clotrimazole,CREAM
+Dandruff,Oily,7,ketoconazole,SHAMPOO
+Fungal Infection,Normal,1,clotrimazole,CREAM
+Acne,Oily,8,adapalene,GEL
+Fungal Infection,Normal,8,ketoconazole,CREAM
+Dandruff,Combination,6,ketoconazole,SHAMPOO
+Eczema,Dry,7,clobetasol,OINTMENT
+Fungal Infection,Oily,2,clotrimazole,POWDER
+Psoriasis,Normal,5,salicylic acid,OINTMENT
+Dandruff,Dry,4,ketoconazole,SHAMPOO
+Psoriasis,Normal,4,salicylic acid,OINTMENT
+Fungal Infection,Normal,1,clotrimazole,CREAM
+Psoriasis,Dry,1,salicylic acid,OINTMENT
+Fungal Infection,Dry,1,clotrimazole,CREAM
+Fungal Infection,Normal,2,clotrimazole,CREAM
+Fungal Infection,Dry,4,clotrimazole,CREAM
+Eczema,Combination,4,hydrocortisone,LOTION
+Dandruff,Normal,7,ketoconazole,SHAMPOO
+Dandruff,Combination,1,ketoconazole,SHAMPOO
+Eczema,Combination,10,clobetasol,LOTION
+Fungal Infection,Dry,2,clotrimazole,CREAM
+Dandruff,Normal,1,ketoconazole,SHAMPOO
+Eczema,Oily,9,clobetasol,LOTION
+Dandruff,Oily,4,ketoconazole,SHAMPOO
+Fungal Infection,Combination,4,clotrimazole,CREAM
+Eczema,Combination,3,hydrocortisone,LOTION
+Acne,Dry,8,clindamycin,CREAM
+Psoriasis,Oily,5,salicylic acid,OINTMENT
+Dandruff,Combination,4,ketoconazole,SHAMPOO
+Eczema,Oily,5,clobetasol,LOTION
+Eczema,Combination,1,hydrocortisone,LOTION
+Fungal Infection,Normal,6,clotrimazole,CREAM
+Fungal Infection,Oily,3,clotrimazole,POWDER
+Acne,Oily,8,adapalene,GEL
+Psoriasis,Dry,8,mometasone,OINTMENT
+Psoriasis,Dry,9,mometasone,OINTMENT
+Acne,Oily,5,adapalene,GEL
+Eczema,Dry,2,hydrocortisone,OINTMENT
+Psoriasis,Combination,3,salicylic acid,OINTMENT
+Dandruff,Normal,5,ketoconazole,SHAMPOO
+Psoriasis,Dry,3,salicylic acid,OINTMENT
+Psoriasis,Dry,9,mometasone,OINTMENT
+Acne,Dry,4,clindamycin,CREAM
+Psoriasis,Oily,6,mometasone,OINTMENT
+Acne,Normal,6,clindamycin,CREAM
+Dandruff,Oily,2,ketoconazole,SHAMPOO
+Eczema,Normal,1,hydrocortisone,LOTION
+Dandruff,Dry,2,ketoconazole,SHAMPOO
+Eczema,Oily,9,clobetasol,LOTION
+Acne,Normal,6,clindamycin,CREAM
+Acne,Normal,6,clindamycin,CREAM
+Eczema,Normal,9,clobetasol,LOTION
+Acne,Normal,9,clindamycin,CREAM
+Psoriasis,Normal,1,salicylic acid,OINTMENT
+Fungal Infection,Normal,2,clotrimazole,CREAM
+Psoriasis,Oily,2,salicylic acid,OINTMENT
+Acne,Oily,9,adapalene,GEL
+Dandruff,Dry,1,ketoconazole,SHAMPOO
+Dandruff,Normal,10,ketoconazole,SHAMPOO
+Fungal Infection,Dry,7,ketoconazole,CREAM
+Fungal Infection,Dry,10,ketoconazole,CREAM
+Fungal Infection,Combination,2,clotrimazole,CREAM
+Fungal Infection,Combination,1,clotrimazole,CREAM
+Eczema,Oily,3,hydrocortisone,LOTION
+Eczema,Dry,9,clobetasol,OINTMENT
+Acne,Combination,9,clindamycin,CREAM
+Fungal Infection,Normal,8,ketoconazole,CREAM
+Fungal Infection,Normal,4,clotrimazole,CREAM
+Eczema,Combination,7,clobetasol,LOTION
+Eczema,Normal,4,hydrocortisone,LOTION
+Fungal Infection,Dry,10,ketoconazole,CREAM
+Eczema,Combination,9,clobetasol,LOTION
+Psoriasis,Dry,2,salicylic acid,OINTMENT
+Psoriasis,Combination,9,mometasone,OINTMENT
+Dandruff,Combination,10,ketoconazole,SHAMPOO
+Eczema,Combination,4,hydrocortisone,LOTION
+Dandruff,Normal,7,ketoconazole,SHAMPOO
+Dandruff,Combination,3,ketoconazole,SHAMPOO
+Psoriasis,Dry,6,mometasone,OINTMENT
+Fungal Infection,Combination,6,clotrimazole,CREAM
+Dandruff,Normal,8,ketoconazole,SHAMPOO
+Acne,Combination,3,clindamycin,CREAM
+Psoriasis,Dry,3,salicylic acid,OINTMENT
+Eczema,Oily,6,clobetasol,LOTION
+Acne,Combination,1,clindamycin,CREAM
+Dandruff,Combination,10,ketoconazole,SHAMPOO
+Dandruff,Normal,4,ketoconazole,SHAMPOO
+Dandruff,Normal,4,ketoconazole,SHAMPOO
+Psoriasis,Normal,2,salicylic acid,OINTMENT
+Acne,Combination,9,clindamycin,CREAM
+Psoriasis,Dry,5,salicylic acid,OINTMENT
+Fungal Infection,Normal,4,clotrimazole,CREAM
+Fungal Infection,Combination,2,clotrimazole,CREAM
+Psoriasis,Dry,7,mometasone,OINTMENT
+Fungal Infection,Combination,3,clotrimazole,CREAM
+Fungal Infection,Dry,3,clotrimazole,CREAM
+Dandruff,Dry,8,ketoconazole,SHAMPOO
+Dandruff,Combination,1,ketoconazole,SHAMPOO
+Eczema,Dry,8,clobetasol,OINTMENT
+Psoriasis,Normal,7,mometasone,OINTMENT
+Fungal Infection,Normal,2,clotrimazole,CREAM
+Dandruff,Oily,6,ketoconazole,SHAMPOO
+Dandruff,Oily,6,ketoconazole,SHAMPOO
+Psoriasis,Oily,8,mometasone,OINTMENT
+Acne,Normal,2,clindamycin,CREAM
+Acne,Combination,9,clindamycin,CREAM
+Acne,Normal,2,clindamycin,CREAM
+Eczema,Oily,5,clobetasol,LOTION
+Acne,Normal,8,clindamycin,CREAM
+Psoriasis,Oily,7,mometasone,OINTMENT
+Eczema,Dry,3,hydrocortisone,OINTMENT
+Fungal Infection,Oily,10,ketoconazole,POWDER
+Psoriasis,Dry,9,mometasone,OINTMENT
+Acne,Oily,4,adapalene,GEL
+Eczema,Normal,1,hydrocortisone,LOTION
+Acne,Normal,6,clindamycin,CREAM
+Psoriasis,Normal,9,mometasone,OINTMENT
+Eczema,Oily,5,clobetasol,LOTION
+Psoriasis,Oily,1,salicylic acid,OINTMENT
+Acne,Normal,8,clindamycin,CREAM
+Psoriasis,Combination,6,mometasone,OINTMENT
+Psoriasis,Combination,4,salicylic acid,OINTMENT
+Fungal Infection,Dry,2,clotrimazole,CREAM
+Acne,Combination,5,clindamycin,CREAM
+Psoriasis,Dry,1,salicylic acid,OINTMENT
+Eczema,Dry,5,clobetasol,OINTMENT
+Dandruff,Combination,5,ketoconazole,SHAMPOO
+Acne,Oily,3,adapalene,GEL
+Psoriasis,Dry,4,salicylic acid,OINTMENT
+Dandruff,Dry,8,ketoconazole,SHAMPOO
+Eczema,Combination,2,hydrocortisone,LOTION
+Acne,Dry,9,clindamycin,CREAM
+Eczema,Dry,7,clobetasol,OINTMENT
+Psoriasis,Dry,4,salicylic acid,OINTMENT
+Dandruff,Normal,2,ketoconazole,SHAMPOO
+Fungal Infection,Normal,7,ketoconazole,CREAM
+Fungal Infection,Oily,1,clotrimazole,POWDER
+Dandruff,Normal,6,ketoconazole,SHAMPOO
+Dandruff,Combination,6,ketoconazole,SHAMPOO
+Fungal Infection,Oily,7,ketoconazole,POWDER
+Fungal Infection,Combination,10,ketoconazole,CREAM
+Fungal Infection,Dry,1,clotrimazole,CREAM
+Fungal Infection,Normal,8,ketoconazole,CREAM
+Acne,Normal,8,clindamycin,CREAM
+Acne,Dry,4,clindamycin,CREAM
+Acne,Oily,3,adapalene,GEL
+Dandruff,Normal,5,ketoconazole,SHAMPOO
+Acne,Dry,2,clindamycin,CREAM
+Fungal Infection,Normal,6,clotrimazole,CREAM
+Acne,Oily,9,adapalene,GEL
+Acne,Normal,9,clindamycin,CREAM
+Dandruff,Oily,9,ketoconazole,SHAMPOO
+Eczema,Normal,2,hydrocortisone,LOTION
+Dandruff,Dry,4,ketoconazole,SHAMPOO
+Eczema,Dry,2,hydrocortisone,OINTMENT
+Fungal Infection,Oily,9,ketoconazole,POWDER
+Eczema,Oily,1,hydrocortisone,LOTION
+Acne,Oily,1,adapalene,GEL
+Psoriasis,Dry,7,mometasone,OINTMENT
+Dandruff,Combination,9,ketoconazole,SHAMPOO
+Acne,Oily,1,adapalene,GEL
+Eczema,Normal,6,clobetasol,LOTION
+Fungal Infection,Combination,3,clotrimazole,CREAM
+Fungal Infection,Dry,9,ketoconazole,CREAM
+Eczema,Oily,10,clobetasol,LOTION
+Fungal Infection,Dry,5,clotrimazole,CREAM
+Dandruff,Dry,9,ketoconazole,SHAMPOO
+Psoriasis,Oily,2,salicylic acid,OINTMENT
+Dandruff,Combination,4,ketoconazole,SHAMPOO
+Eczema,Normal,7,clobetasol,LOTION
+Fungal Infection,Normal,5,clotrimazole,CREAM
+Eczema,Combination,5,clobetasol,LOTION
+Psoriasis,Combination,9,mometasone,OINTMENT
+Psoriasis,Combination,3,salicylic acid,OINTMENT
+Psoriasis,Oily,6,mometasone,OINTMENT
+Eczema,Dry,4,hydrocortisone,OINTMENT
+Dandruff,Normal,3,ketoconazole,SHAMPOO
+Fungal Infection,Normal,2,clotrimazole,CREAM
+Fungal Infection,Oily,4,clotrimazole,POWDER
+Fungal Infection,Oily,7,ketoconazole,POWDER
+Psoriasis,Dry,7,mometasone,OINTMENT
+Dandruff,Combination,7,ketoconazole,SHAMPOO
+Acne,Dry,10,clindamycin,CREAM
+Psoriasis,Normal,4,salicylic acid,OINTMENT
+Acne,Normal,8,clindamycin,CREAM
+Dandruff,Dry,7,ketoconazole,SHAMPOO
+Dandruff,Dry,9,ketoconazole,SHAMPOO
+Fungal Infection,Oily,10,ketoconazole,POWDER
+Fungal Infection,Oily,10,ketoconazole,POWDER
+Acne,Dry,5,clindamycin,CREAM
+Psoriasis,Dry,8,mometasone,OINTMENT
+Eczema,Normal,7,clobetasol,LOTION
+Fungal Infection,Oily,2,clotrimazole,POWDER
+Eczema,Normal,10,clobetasol,LOTION
+Acne,Combination,2,clindamycin,CREAM
+Dandruff,Combination,1,ketoconazole,SHAMPOO
+Eczema,Normal,2,hydrocortisone,LOTION
+Acne,Combination,5,clindamycin,CREAM
+Acne,Dry,5,clindamycin,CREAM
+Eczema,Normal,7,clobetasol,LOTION
+Eczema,Dry,9,clobetasol,OINTMENT
+Dandruff,Oily,9,ketoconazole,SHAMPOO
+Acne,Dry,3,clindamycin,CREAM
+Dandruff,Dry,3,ketoconazole,SHAMPOO
+Fungal Infection,Dry,7,ketoconazole,CREAM
+Acne,Oily,7,adapalene,GEL
+Psoriasis,Dry,3,salicylic acid,OINTMENT
+Psoriasis,Dry,6,mometasone,OINTMENT
+Fungal Infection,Normal,7,ketoconazole,CREAM
+Dandruff,Dry,4,ketoconazole,SHAMPOO
+Dandruff,Oily,4,ketoconazole,SHAMPOO
+Eczema,Oily,8,clobetasol,LOTION
+Acne,Combination,6,clindamycin,CREAM
+Acne,Combination,4,clindamycin,CREAM
+Dandruff,Oily,2,ketoconazole,SHAMPOO
+Psoriasis,Oily,5,salicylic acid,OINTMENT
+Fungal Infection,Combination,6,clotrimazole,CREAM
+Psoriasis,Oily,10,mometasone,OINTMENT
+Eczema,Dry,6,clobetasol,OINTMENT
+Fungal Infection,Combination,2,clotrimazole,CREAM
+Acne,Combination,2,clindamycin,CREAM
+Psoriasis,Normal,6,mometasone,OINTMENT
+Psoriasis,Dry,4,salicylic acid,OINTMENT
+Dandruff,Oily,9,ketoconazole,SHAMPOO
+Fungal Infection,Dry,9,ketoconazole,CREAM
+Psoriasis,Oily,8,mometasone,OINTMENT
+Psoriasis,Combination,7,mometasone,OINTMENT
+Psoriasis,Combination,8,mometasone,OINTMENT
+Dandruff,Normal,8,ketoconazole,SHAMPOO
+Psoriasis,Oily,9,mometasone,OINTMENT
+Dandruff,Normal,6,ketoconazole,SHAMPOO
+Fungal Infection,Normal,7,ketoconazole,CREAM
+Acne,Oily,6,adapalene,GEL
+Psoriasis,Dry,4,salicylic acid,OINTMENT
+Acne,Combination,2,clindamycin,CREAM
+Dandruff,Dry,9,ketoconazole,SHAMPOO
+Dandruff,Dry,9,ketoconazole,SHAMPOO
+Acne,Oily,3,adapalene,GEL
+Psoriasis,Dry,7,mometasone,OINTMENT
+Fungal Infection,Normal,2,clotrimazole,CREAM
+Eczema,Dry,6,clobetasol,OINTMENT
+Psoriasis,Oily,4,salicylic acid,OINTMENT
+Fungal Infection,Normal,1,clotrimazole,CREAM
+Fungal Infection,Dry,2,clotrimazole,CREAM
+Dandruff,Combination,8,ketoconazole,SHAMPOO
+Fungal Infection,Dry,6,clotrimazole,CREAM
+Eczema,Normal,7,clobetasol,LOTION
+Psoriasis,Dry,9,mometasone,OINTMENT
+Dandruff,Combination,2,ketoconazole,SHAMPOO
+Eczema,Dry,3,hydrocortisone,OINTMENT
+Fungal Infection,Dry,4,clotrimazole,CREAM
+Fungal Infection,Normal,10,ketoconazole,CREAM
+Acne,Dry,9,clindamycin,CREAM
+Dandruff,Dry,1,ketoconazole,SHAMPOO
+Psoriasis,Combination,1,salicylic acid,OINTMENT
+Dandruff,Normal,3,ketoconazole,SHAMPOO
+Eczema,Oily,6,clobetasol,LOTION
+Acne,Oily,5,adapalene,GEL
+Fungal Infection,Normal,5,clotrimazole,CREAM
+Fungal Infection,Normal,9,ketoconazole,CREAM
+Psoriasis,Oily,4,salicylic acid,OINTMENT
+Fungal Infection,Oily,6,clotrimazole,POWDER
+Dandruff,Combination,2,ketoconazole,SHAMPOO
+Psoriasis,Combination,3,salicylic acid,OINTMENT
+Eczema,Oily,3,hydrocortisone,LOTION
+Fungal Infection,Dry,9,ketoconazole,CREAM
+Fungal Infection,Dry,2,clotrimazole,CREAM
+Dandruff,Combination,8,ketoconazole,SHAMPOO
+Acne,Combination,3,clindamycin,CREAM
+Acne,Combination,5,clindamycin,CREAM
+Acne,Normal,3,clindamycin,CREAM
+Psoriasis,Oily,4,salicylic acid,OINTMENT
+Psoriasis,Combination,8,mometasone,OINTMENT
+Acne,Oily,7,adapalene,GEL
+Psoriasis,Normal,4,salicylic acid,OINTMENT
+Psoriasis,Normal,6,mometasone,OINTMENT
+Fungal Infection,Combination,5,clotrimazole,CREAM
+Psoriasis,Combination,3,salicylic acid,OINTMENT
+Eczema,Normal,6,clobetasol,LOTION
+Dandruff,Oily,6,ketoconazole,SHAMPOO
+Dandruff,Dry,7,ketoconazole,SHAMPOO
+Fungal Infection,Dry,5,clotrimazole,CREAM
+Dandruff,Dry,7,ketoconazole,SHAMPOO
+Fungal Infection,Normal,7,ketoconazole,CREAM
+Dandruff,Oily,5,ketoconazole,SHAMPOO
+Fungal Infection,Dry,5,clotrimazole,CREAM
+Dandruff,Dry,5,ketoconazole,SHAMPOO
+Dandruff,Normal,4,ketoconazole,SHAMPOO
+Acne,Combination,1,clindamycin,CREAM
+Psoriasis,Combination,5,salicylic acid,OINTMENT
+Psoriasis,Normal,7,mometasone,OINTMENT
+Dandruff,Dry,4,ketoconazole,SHAMPOO
+Fungal Infection,Normal,2,clotrimazole,CREAM
+Eczema,Oily,4,hydrocortisone,LOTION
+Dandruff,Dry,10,ketoconazole,SHAMPOO
+Dandruff,Dry,1,ketoconazole,SHAMPOO
+Acne,Normal,1,clindamycin,CREAM
+Acne,Oily,1,adapalene,GEL
+Fungal Infection,Normal,1,clotrimazole,CREAM
+Fungal Infection,Dry,10,ketoconazole,CREAM
+Psoriasis,Normal,5,salicylic acid,OINTMENT
+Psoriasis,Combination,7,mometasone,OINTMENT
+Fungal Infection,Normal,6,clotrimazole,CREAM
+Acne,Combination,1,clindamycin,CREAM
+Psoriasis,Combination,8,mometasone,OINTMENT
+Dandruff,Combination,5,ketoconazole,SHAMPOO
+Psoriasis,Oily,7,mometasone,OINTMENT
+Dandruff,Normal,8,ketoconazole,SHAMPOO
+Acne,Combination,1,clindamycin,CREAM
+Dandruff,Combination,8,ketoconazole,SHAMPOO
+Eczema,Normal,1,hydrocortisone,LOTION
+Dandruff,Normal,5,ketoconazole,SHAMPOO
+Fungal Infection,Combination,4,clotrimazole,CREAM
+Eczema,Normal,3,hydrocortisone,LOTION
+Eczema,Normal,3,hydrocortisone,LOTION
+Eczema,Dry,5,clobetasol,OINTMENT
+Dandruff,Dry,6,ketoconazole,SHAMPOO
+Fungal Infection,Dry,1,clotrimazole,CREAM
+Acne,Oily,2,adapalene,GEL
+Fungal Infection,Combination,1,clotrimazole,CREAM
+Psoriasis,Dry,4,salicylic acid,OINTMENT
+Acne,Oily,9,adapalene,GEL
+Fungal Infection,Combination,2,clotrimazole,CREAM
+Fungal Infection,Oily,4,clotrimazole,POWDER
+Psoriasis,Combination,8,mometasone,OINTMENT
+Fungal Infection,Dry,5,clotrimazole,CREAM
+Psoriasis,Dry,10,mometasone,OINTMENT
+Acne,Normal,2,clindamycin,CREAM
+Acne,Oily,8,adapalene,GEL
+Eczema,Dry,10,clobetasol,OINTMENT
+Acne,Dry,6,clindamycin,CREAM
+Psoriasis,Dry,4,salicylic acid,OINTMENT
+Dandruff,Normal,3,ketoconazole,SHAMPOO
+Acne,Normal,5,clindamycin,CREAM
+Eczema,Dry,7,clobetasol,OINTMENT
+Acne,Normal,9,clindamycin,CREAM
+Fungal Infection,Oily,5,clotrimazole,POWDER
+Psoriasis,Normal,6,mometasone,OINTMENT
+Eczema,Oily,6,clobetasol,LOTION
+Psoriasis,Oily,2,salicylic acid,OINTMENT
+Fungal Infection,Oily,5,clotrimazole,POWDER
+Psoriasis,Combination,2,salicylic acid,OINTMENT
+Eczema,Combination,8,clobetasol,LOTION
+Psoriasis,Oily,6,mometasone,OINTMENT
+Eczema,Oily,1,hydrocortisone,LOTION
+Eczema,Combination,6,clobetasol,LOTION
+Eczema,Combination,7,clobetasol,LOTION
+Psoriasis,Combination,9,mometasone,OINTMENT
+Dandruff,Combination,8,ketoconazole,SHAMPOO
+Fungal Infection,Dry,8,ketoconazole,CREAM
+Acne,Normal,5,clindamycin,CREAM
+Eczema,Oily,4,hydrocortisone,LOTION
+Eczema,Normal,10,clobetasol,LOTION
+Fungal Infection,Combination,9,ketoconazole,CREAM
+Fungal Infection,Oily,7,ketoconazole,POWDER
+Eczema,Combination,2,hydrocortisone,LOTION
+Acne,Normal,9,clindamycin,CREAM
+Psoriasis,Normal,6,mometasone,OINTMENT
+Fungal Infection,Dry,10,ketoconazole,CREAM
+Psoriasis,Oily,9,mometasone,OINTMENT
+Fungal Infection,Oily,9,ketoconazole,POWDER
+Psoriasis,Combination,3,salicylic acid,OINTMENT
+Eczema,Oily,10,clobetasol,LOTION
+Psoriasis,Combination,4,salicylic acid,OINTMENT
+Psoriasis,Dry,8,mometasone,OINTMENT
+Eczema,Dry,5,clobetasol,OINTMENT
+Dandruff,Dry,8,ketoconazole,SHAMPOO
+Dandruff,Dry,6,ketoconazole,SHAMPOO
+Psoriasis,Normal,9,mometasone,OINTMENT
+Dandruff,Normal,1,ketoconazole,SHAMPOO
+Psoriasis,Oily,3,salicylic acid,OINTMENT
+Dandruff,Normal,10,ketoconazole,SHAMPOO
+Psoriasis,Normal,8,mometasone,OINTMENT
+Fungal Infection,Dry,2,clotrimazole,CREAM
+Eczema,Combination,3,hydrocortisone,LOTION
+Acne,Combination,3,clindamycin,CREAM
+Dandruff,Normal,10,ketoconazole,SHAMPOO
+Dandruff,Combination,4,ketoconazole,SHAMPOO
+Eczema,Normal,4,hydrocortisone,LOTION
+Acne,Combination,1,clindamycin,CREAM
+Fungal Infection,Combination,4,clotrimazole,CREAM
+Acne,Combination,9,clindamycin,CREAM
+Psoriasis,Dry,1,salicylic acid,OINTMENT
+Acne,Dry,4,clindamycin,CREAM
+Psoriasis,Normal,6,mometasone,OINTMENT
+Psoriasis,Combination,7,mometasone,OINTMENT
+Acne,Dry,5,clindamycin,CREAM
+Acne,Normal,10,clindamycin,CREAM
+Fungal Infection,Combination,1,clotrimazole,CREAM
+Dandruff,Dry,1,ketoconazole,SHAMPOO
+Eczema,Oily,3,hydrocortisone,LOTION
+Dandruff,Combination,10,ketoconazole,SHAMPOO
+Eczema,Dry,10,clobetasol,OINTMENT
+Eczema,Oily,5,clobetasol,LOTION
+Psoriasis,Oily,5,salicylic acid,OINTMENT
+Fungal Infection,Normal,5,clotrimazole,CREAM
+Psoriasis,Dry,10,mometasone,OINTMENT
+Psoriasis,Dry,7,mometasone,OINTMENT
+Fungal Infection,Combination,1,clotrimazole,CREAM
+Acne,Normal,6,clindamycin,CREAM
+Acne,Dry,9,clindamycin,CREAM
+Psoriasis,Normal,9,mometasone,OINTMENT
+Psoriasis,Oily,8,mometasone,OINTMENT
+Psoriasis,Dry,6,mometasone,OINTMENT
+Psoriasis,Combination,3,salicylic acid,OINTMENT
+Psoriasis,Dry,8,mometasone,OINTMENT
+Fungal Infection,Normal,6,clotrimazole,CREAM
+Fungal Infection,Oily,6,clotrimazole,POWDER
+Psoriasis,Oily,4,salicylic acid,OINTMENT
+Eczema,Normal,2,hydrocortisone,LOTION
+Fungal Infection,Combination,9,ketoconazole,CREAM
+Dandruff,Normal,2,ketoconazole,SHAMPOO
+Acne,Combination,7,clindamycin,CREAM
+Fungal Infection,Normal,8,ketoconazole,CREAM
+Eczema,Normal,8,clobetasol,LOTION
+Dandruff,Dry,10,ketoconazole,SHAMPOO
+Psoriasis,Normal,9,mometasone,OINTMENT
+Dandruff,Dry,5,ketoconazole,SHAMPOO
+Fungal Infection,Oily,3,clotrimazole,POWDER
+Fungal Infection,Oily,8,ketoconazole,POWDER
+Acne,Combination,3,clindamycin,CREAM
+Acne,Oily,9,adapalene,GEL
+Dandruff,Oily,1,ketoconazole,SHAMPOO
+Fungal Infection,Oily,4,clotrimazole,POWDER
+Fungal Infection,Oily,7,ketoconazole,POWDER
+Acne,Oily,8,adapalene,GEL
+Dandruff,Oily,2,ketoconazole,SHAMPOO
+Psoriasis,Dry,9,mometasone,OINTMENT
+Acne,Oily,2,adapalene,GEL
+Fungal Infection,Oily,10,ketoconazole,POWDER
+Dandruff,Oily,2,ketoconazole,SHAMPOO
+Acne,Dry,10,clindamycin,CREAM
+Fungal Infection,Normal,3,clotrimazole,CREAM
+Dandruff,Combination,6,ketoconazole,SHAMPOO
+Psoriasis,Normal,8,mometasone,OINTMENT
+Psoriasis,Combination,10,mometasone,OINTMENT
+Eczema,Normal,3,hydrocortisone,LOTION
+Acne,Normal,7,clindamycin,CREAM
+Dandruff,Normal,10,ketoconazole,SHAMPOO
+Psoriasis,Dry,4,salicylic acid,OINTMENT
+Dandruff,Combination,6,ketoconazole,SHAMPOO
+Psoriasis,Normal,9,mometasone,OINTMENT
+Fungal Infection,Normal,10,ketoconazole,CREAM
