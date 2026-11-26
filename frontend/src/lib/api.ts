@@ -7,17 +7,19 @@ const TOKEN_STORAGE_KEY = "nidaan_rx_v2_token";
 
 export function getAuthToken(): string | null {
   if (typeof window === "undefined") return null;
-  return window.localStorage.getItem(TOKEN_STORAGE_KEY);
+  return window.sessionStorage.getItem(TOKEN_STORAGE_KEY);
 }
 
 export function setAuthToken(token: string): void {
   if (typeof window !== "undefined") {
-    window.localStorage.setItem(TOKEN_STORAGE_KEY, token);
+    window.localStorage.removeItem(TOKEN_STORAGE_KEY);
+    window.sessionStorage.setItem(TOKEN_STORAGE_KEY, token);
   }
 }
 
 export function clearAuthToken(): void {
   if (typeof window !== "undefined") {
+    window.sessionStorage.removeItem(TOKEN_STORAGE_KEY);
     window.localStorage.removeItem(TOKEN_STORAGE_KEY);
   }
 }
@@ -52,6 +54,7 @@ export type GateAction = "PASS" | "WARN" | "BLOCK" | "MODIFY" | "HARD_STOP";
 export interface AuthUser {
   user_id: string;
   email: string;
+  username?: string | null;
   full_name: string;
   created_at: string;
 }
@@ -62,6 +65,7 @@ export interface AuthResponse {
   user: AuthUser;
   profile: PatientProfileInput;
   weight_updated_at: string;
+  profile_completed?: boolean;
 }
 
 export interface MeResponse {
@@ -69,12 +73,14 @@ export interface MeResponse {
   profile: PatientProfileInput;
   weight_updated_at: string;
   updated_at: string;
+  profile_completed?: boolean;
 }
 
 export interface SavedProfileResponse {
   profile: PatientProfileInput;
   weight_updated_at: string;
   updated_at: string;
+  profile_completed?: boolean;
 }
 
 export interface RedFlagChecklist {
@@ -307,6 +313,7 @@ async function parse<T>(res: Response, fallback: string): Promise<T> {
 
 export async function registerUser(params: {
   email: string;
+  username?: string;
   password: string;
   full_name: string;
 }): Promise<AuthResponse> {
@@ -319,7 +326,10 @@ export async function registerUser(params: {
 }
 
 export async function loginUser(params: {
-  email: string;
+  identifier?: string;
+  email?: string;
+  username?: string;
+  login_by?: "auto" | "email" | "username";
   password: string;
 }): Promise<AuthResponse> {
   const res = await fetch(`${API_BASE}/api/v2/auth/login`, {

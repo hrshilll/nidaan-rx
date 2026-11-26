@@ -7,7 +7,9 @@ from __future__ import annotations
 import io
 import json
 import os
+import re
 import sqlite3
+from typing import Literal
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
@@ -66,14 +68,22 @@ def get_case_repo() -> CaseRepository:
     return CaseRepository(db_path=db_path)
 
 
+EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+USERNAME_RE = re.compile(r"^[a-zA-Z0-9_.-]{3,30}$")
+
+
 class RegisterRequest(BaseModel):
     email: str = Field(..., min_length=5, max_length=160)
+    username: str | None = Field(default=None, min_length=3, max_length=30)
     password: str = Field(..., min_length=6, max_length=128)
-    full_name: str = Field(..., min_length=1, max_length=100)
+    full_name: str = Field(..., min_length=2, max_length=100)
 
 
 class LoginRequest(BaseModel):
-    email: str = Field(..., min_length=5, max_length=160)
+    identifier: str | None = Field(default=None, min_length=3, max_length=160)
+    email: str | None = Field(default=None, min_length=3, max_length=160)
+    username: str | None = Field(default=None, min_length=3, max_length=30)
+    login_by: Literal["auto", "email", "username"] = "auto"
     password: str = Field(..., min_length=1, max_length=128)
 
 
@@ -100,26 +110,42 @@ def _default_profile_dict() -> dict[str, Any]:
 @app.post("/api/v2/auth/register")
 def register_account(payload: RegisterRequest) -> dict[str, Any]:
     email = payload.email.strip().lower()
-    if "@" not in email or "." not in email.split("@")[-1]:
+    full_name = payload.full_name.strip()
+    username = payload.username.strip().lower() if payload.username else None
+
+    if len(full_name) < 2:
+        raise HTTPException(status_code=422, detail="Full name must be at least 2 characters.")
+    if not EMAIL_RE.match(email):
         raise HTTPException(status_code=422, detail="Please enter a valid email address.")
+    if username is not None and not USERNAME_RE.match(username):
+        raise HTTPException(
+            status_code=422,
+            detail="Username must be 3–30 characters using only letters, numbers, '.', '_' or '-'.",
+        )
+    if not payload.password.strip():
+        raise HTTPException(status_code=422, detail="Password cannot be blank.")
 
     repo = get_case_repo()
     if repo.get_user_by_email(email) is not None:
         raise HTTPException(status_code=409, detail="An account with this email already exists.")
+    if username is not None and repo.get_user_by_username(username) is not None:
+        raise HTTPException(status_code=409, detail="This username is already taken.")
 
     try:
         user = repo.create_user(
             email=email,
-            full_name=payload.full_name.strip(),
+            username=username,
+            full_name=full_name,
             password_hash=hash_password(payload.password),
         )
     except sqlite3.IntegrityError as exc:
-        raise HTTPException(status_code=409, detail="An account with this email already exists.") from exc
+        raise HTTPException(status_code=409, detail="An account with this email or username already exists.") from exc
 
     saved_profile = repo.upsert_user_profile(
         user["user_id"],
         _default_profile_dict(),
         force_weight_timestamp=True,
+        mark_completed=False,
     )
     token = create_access_token(
         user_id=user["user_id"],
@@ -132,19 +158,36 @@ def register_account(payload: RegisterRequest) -> dict[str, Any]:
         "user": user,
         "profile": saved_profile["profile"],
         "weight_updated_at": saved_profile["weight_updated_at"],
+        "profile_completed": saved_profile["profile_completed"],
     }
 
 
 @app.post("/api/v2/auth/login")
 def login_account(payload: LoginRequest) -> dict[str, Any]:
     repo = get_case_repo()
-    row = repo.get_user_by_email(payload.email)
+    raw_id = (payload.identifier or payload.email or payload.username or "").strip().lower()
+    if not raw_id:
+        raise HTTPException(status_code=422, detail="Please enter your email or username.")
+
+    row = None
+    if payload.login_by == "email":
+        if not EMAIL_RE.match(raw_id):
+            raise HTTPException(status_code=422, detail="Please enter a valid email address.")
+        row = repo.get_user_by_email(raw_id)
+    elif payload.login_by == "username":
+        if not USERNAME_RE.match(raw_id):
+            raise HTTPException(status_code=422, detail="Please enter a valid username (3–30 characters).")
+        row = repo.get_user_by_username(raw_id)
+    else:
+        row = repo.get_user_by_email(raw_id) if "@" in raw_id else repo.get_user_by_username(raw_id)
+
     if row is None or not verify_password(payload.password, row["password_hash"]):
-        raise HTTPException(status_code=401, detail="Invalid email or password.")
+        raise HTTPException(status_code=401, detail="Invalid credentials. Check your email/username and password.")
 
     user = {
         "user_id": row["user_id"],
         "email": row["email"],
+        "username": row.get("username"),
         "full_name": row["full_name"],
         "created_at": row["created_at"],
     }
@@ -167,6 +210,7 @@ def login_account(payload: LoginRequest) -> dict[str, Any]:
         "user": user,
         "profile": prof["profile"],
         "weight_updated_at": prof["weight_updated_at"],
+        "profile_completed": prof["profile_completed"],
     }
 
 
@@ -239,6 +283,7 @@ def get_me(claims: dict[str, Any] = Depends(require_user)) -> dict[str, Any]:
         "profile": prof["profile"],
         "weight_updated_at": prof["weight_updated_at"],
         "updated_at": prof["updated_at"],
+        "profile_completed": prof["profile_completed"],
     }
 
 
@@ -260,7 +305,7 @@ def update_saved_profile(
     profile: PatientProfile,
     claims: dict[str, Any] = Depends(require_user),
 ) -> dict[str, Any]:
-    return get_case_repo().upsert_user_profile(claims["sub"], profile.model_dump(mode="json"))
+    return get_case_repo().upsert_user_profile(claims["sub"], profile.model_dump(mode="json"), mark_completed=True)
 
 
 # ==================== PUBLIC HEALTH & BENCHMARKS ====================

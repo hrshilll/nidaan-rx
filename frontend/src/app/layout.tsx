@@ -32,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${figtree.variable} ${notoSans.variable} ${jetbrains.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${figtree.variable} ${notoSans.variable} ${jetbrains.variable}`}>
       <body className="font-sans antialiased bg-[var(--color-canvas)] text-[var(--color-foreground)] selection:bg-[#0891B2]/15 selection:text-[#164E63]">
         {children}
       </body>

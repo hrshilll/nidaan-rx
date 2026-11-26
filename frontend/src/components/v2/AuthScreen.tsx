@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import {
   AlertTriangle,
+  AtSign,
   BadgeCheck,
   Eye,
   EyeOff,
@@ -20,6 +21,7 @@ import {
   setAuthToken,
   type AuthResponse,
 } from "@/lib/api";
+import { ThemeToggle } from "./ThemeToggle";
 
 interface AuthScreenProps {
   onSuccess: (res: AuthResponse) => void;
@@ -27,13 +29,18 @@ interface AuthScreenProps {
   onRetryHealth?: () => void;
 }
 
+const EMAIL_REGEX = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+const USERNAME_REGEX = /^[a-zA-Z0-9_.-]{3,30}$/;
+
 export function AuthScreen({
   onSuccess,
   backendOffline = false,
   onRetryHealth,
 }: AuthScreenProps) {
   const [mode, setMode] = useState<"login" | "register">("login");
+  const [loginBy, setLoginBy] = useState<"email" | "username">("email");
   const [fullName, setFullName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -48,19 +55,65 @@ export function AuthScreen({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+
+    const cleanName = fullName.trim();
+    const cleanEmail = email.trim().toLowerCase();
+    const cleanUsername = username.trim().toLowerCase();
+
+    if (mode === "register") {
+      if (cleanName.length < 2 || cleanName.length > 100) {
+        setError("Full name must be between 2 and 100 characters.");
+        return;
+      }
+      if (!USERNAME_REGEX.test(cleanUsername)) {
+        setError("Username must be 3–30 characters using only letters, numbers, '.', '_' or '-'.");
+        return;
+      }
+      if (!EMAIL_REGEX.test(cleanEmail)) {
+        setError("Please enter a valid email address.");
+        return;
+      }
+      if (password.length < 6 || password.length > 128 || !password.trim()) {
+        setError("Password must be 6–128 characters and cannot be blank.");
+        return;
+      }
+    } else {
+      if (loginBy === "email") {
+        if (!EMAIL_REGEX.test(cleanEmail)) {
+          setError("Please enter a valid email address.");
+          return;
+        }
+      } else {
+        if (!USERNAME_REGEX.test(cleanUsername)) {
+          setError("Please enter a valid username (3–30 characters, no spaces).");
+          return;
+        }
+      }
+      if (!password) {
+        setError("Please enter your password.");
+        return;
+      }
+    }
+
     setLoading(true);
     try {
       const res =
         mode === "register"
           ? await registerUser({
-              email: email.trim(),
+              email: cleanEmail,
+              username: cleanUsername,
               password,
-              full_name: fullName.trim(),
+              full_name: cleanName,
             })
-          : await loginUser({ email: email.trim(), password });
+          : await loginUser({
+              identifier: loginBy === "email" ? cleanEmail : cleanUsername,
+              login_by: loginBy,
+              password,
+            });
 
       setAuthToken(res.access_token);
       setFullName("");
+      setUsername("");
       setEmail("");
       setPassword("");
       onSuccess(res);
@@ -80,6 +133,10 @@ export function AuthScreen({
 
   return (
     <div className="flex min-h-screen flex-col justify-between bg-[var(--color-canvas)] px-4 py-8 text-[#164E63] sm:px-6 lg:px-8">
+      <div className="mx-auto flex w-full max-w-4xl justify-end pb-3">
+        <ThemeToggle />
+      </div>
+
       <div className="mx-auto flex w-full max-w-4xl flex-1 flex-col justify-center">
         {backendOffline && (
           <div className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-[#FFFBEB] px-4 py-3 text-xs text-[#92400E] ring-1 ring-[#FDE68A]">
@@ -161,8 +218,8 @@ export function AuthScreen({
                 </h2>
                 <p className="mt-1 text-xs text-[#475569]">
                   {mode === "login"
-                    ? "Sign in with your email and password to continue."
-                    : "Register once to save your baseline health profile and private reports."}
+                    ? "Sign in with your email or username to continue."
+                    : "Register once, then complete your baseline health profile."}
                 </p>
               </div>
 
@@ -209,12 +266,39 @@ export function AuthScreen({
               )}
 
               <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+                {mode === "login" && (
+                  <div>
+                    <span className="block text-xs font-semibold text-[#164E63]">Sign in using</span>
+                    <div className="mt-1.5 grid grid-cols-2 gap-1 rounded-xl bg-[#E8F1F6] p-1 text-xs font-semibold">
+                      <button
+                        type="button"
+                        onClick={() => { setLoginBy("email"); setError(null); }}
+                        className={`cursor-pointer rounded-lg py-1.5 transition ${
+                          loginBy === "email"
+                            ? "bg-white text-[#164E63] shadow-xs"
+                            : "text-[#475569] hover:text-[#164E63]"
+                        }`}
+                      >
+                        Email
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => { setLoginBy("username"); setError(null); }}
+                        className={`cursor-pointer rounded-lg py-1.5 transition ${
+                          loginBy === "username"
+                            ? "bg-white text-[#164E63] shadow-xs"
+                            : "text-[#475569] hover:text-[#164E63]"
+                        }`}
+                      >
+                        Username
+                      </button>
+                    </div>
+                  </div>
+                )}
+
                 {mode === "register" && (
                   <div>
-                    <label
-                      htmlFor="auth-fullname"
-                      className="block text-xs font-semibold text-[#164E63]"
-                    >
+                    <label htmlFor="auth-fullname" className="block text-xs font-semibold text-[#164E63]">
                       Full Name
                     </label>
                     <div className="relative mt-1.5">
@@ -223,6 +307,8 @@ export function AuthScreen({
                         id="auth-fullname"
                         type="text"
                         required
+                        minLength={2}
+                        maxLength={100}
                         autoComplete="name"
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
@@ -233,33 +319,55 @@ export function AuthScreen({
                   </div>
                 )}
 
-                <div>
-                  <label
-                    htmlFor="auth-email"
-                    className="block text-xs font-semibold text-[#164E63]"
-                  >
-                    Email Address
-                  </label>
-                  <div className="relative mt-1.5">
-                    <Mail className="pointer-events-none absolute left-3.5 top-3 h-4 w-4 text-[#64748B]" />
-                    <input
-                      id="auth-email"
-                      type="email"
-                      required
-                      autoComplete="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="you@example.com"
-                      className="h-11 w-full rounded-xl bg-[#F3FAFC] pl-10 pr-3.5 text-sm text-[#164E63] ring-1 ring-[#CBEBF2] placeholder:text-[#64748B] focus:bg-white focus:ring-2 focus:ring-[#0891B2] focus:outline-none"
-                    />
+                {(mode === "register" || loginBy === "username") && (
+                  <div>
+                    <label htmlFor="auth-username" className="block text-xs font-semibold text-[#164E63]">
+                      Username
+                    </label>
+                    <div className="relative mt-1.5">
+                      <AtSign className="pointer-events-none absolute left-3.5 top-3 h-4 w-4 text-[#64748B]" />
+                      <input
+                        id="auth-username"
+                        type="text"
+                        required
+                        minLength={3}
+                        maxLength={30}
+                        pattern="[a-zA-Z0-9_.-]{3,30}"
+                        title="3–30 characters: letters, numbers, '.', '_' or '-'"
+                        autoComplete="username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value.replace(/\s+/g, ""))}
+                        placeholder="e.g. harshil_01"
+                        className="h-11 w-full rounded-xl bg-[#F3FAFC] pl-10 pr-3.5 text-sm text-[#164E63] ring-1 ring-[#CBEBF2] placeholder:text-[#64748B] focus:bg-white focus:ring-2 focus:ring-[#0891B2] focus:outline-none"
+                      />
+                    </div>
                   </div>
-                </div>
+                )}
+
+                {(mode === "register" || loginBy === "email") && (
+                  <div>
+                    <label htmlFor="auth-email" className="block text-xs font-semibold text-[#164E63]">
+                      Email Address
+                    </label>
+                    <div className="relative mt-1.5">
+                      <Mail className="pointer-events-none absolute left-3.5 top-3 h-4 w-4 text-[#64748B]" />
+                      <input
+                        id="auth-email"
+                        type="email"
+                        required
+                        maxLength={160}
+                        autoComplete="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="you@example.com"
+                        className="h-11 w-full rounded-xl bg-[#F3FAFC] pl-10 pr-3.5 text-sm text-[#164E63] ring-1 ring-[#CBEBF2] placeholder:text-[#64748B] focus:bg-white focus:ring-2 focus:ring-[#0891B2] focus:outline-none"
+                      />
+                    </div>
+                  </div>
+                )}
 
                 <div>
-                  <label
-                    htmlFor="auth-password"
-                    className="block text-xs font-semibold text-[#164E63]"
-                  >
+                  <label htmlFor="auth-password" className="block text-xs font-semibold text-[#164E63]">
                     Password
                   </label>
                   <div className="relative mt-1.5">
@@ -269,31 +377,20 @@ export function AuthScreen({
                       type={showPassword ? "text" : "password"}
                       required
                       minLength={6}
-                      autoComplete={
-                        mode === "login" ? "current-password" : "new-password"
-                      }
+                      maxLength={128}
+                      autoComplete={mode === "login" ? "current-password" : "new-password"}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      placeholder={
-                        mode === "register"
-                          ? "Minimum 6 characters"
-                          : "Enter your password"
-                      }
+                      placeholder={mode === "register" ? "Minimum 6 characters" : "Enter your password"}
                       className="h-11 w-full rounded-xl bg-[#F3FAFC] pl-10 pr-11 text-sm text-[#164E63] ring-1 ring-[#CBEBF2] placeholder:text-[#64748B] focus:bg-white focus:ring-2 focus:ring-[#0891B2] focus:outline-none"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword((v) => !v)}
-                      aria-label={
-                        showPassword ? "Hide password" : "Show password"
-                      }
+                      aria-label={showPassword ? "Hide password" : "Show password"}
                       className="absolute right-2.5 top-2 flex h-7 w-7 cursor-pointer items-center justify-center rounded-lg text-[#64748B] transition hover:bg-[#E8F1F6] hover:text-[#164E63]"
                     >
-                      {showPassword ? (
-                        <EyeOff className="h-4 w-4" />
-                      ) : (
-                        <Eye className="h-4 w-4" />
-                      )}
+                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
                   </div>
                 </div>
@@ -347,7 +444,7 @@ export function AuthScreen({
       </div>
 
       <footer className="mt-8 text-center text-[11px] text-[#64748B]">
-        Nidaan-Rx v2.0 · Local SQLite Encrypted Session Auth · Private Clinical Workspace
+        Nidaan-Rx v2.0 · Session-Scoped Auth · Private Clinical Workspace
       </footer>
     </div>
   );

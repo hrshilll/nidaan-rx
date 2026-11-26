@@ -18,6 +18,7 @@ SCHEMA_SQL = """
 CREATE TABLE IF NOT EXISTS users (
     user_id TEXT PRIMARY KEY,
     email TEXT UNIQUE NOT NULL,
+    username TEXT UNIQUE,
     full_name TEXT NOT NULL,
     password_hash TEXT NOT NULL,
     created_at TEXT NOT NULL
@@ -28,6 +29,7 @@ CREATE TABLE IF NOT EXISTS user_profiles (
     profile_json TEXT NOT NULL,
     weight_updated_at TEXT NOT NULL,
     updated_at TEXT NOT NULL,
+    profile_completed INTEGER NOT NULL DEFAULT 0,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
@@ -94,6 +96,21 @@ class CaseRepository:
             }
             if "user_id" not in cols:
                 conn.execute("ALTER TABLE assessment_sessions ADD COLUMN user_id TEXT")
+            prof_cols = {
+                row["name"]
+                for row in conn.execute("PRAGMA table_info(user_profiles)").fetchall()
+            }
+            if "profile_completed" not in prof_cols:
+                conn.execute(
+                    "ALTER TABLE user_profiles ADD COLUMN profile_completed INTEGER NOT NULL DEFAULT 1"
+                )
+            user_cols = {
+                row["name"]
+                for row in conn.execute("PRAGMA table_info(users)").fetchall()
+            }
+            if "username" not in user_cols:
+                conn.execute("ALTER TABLE users ADD COLUMN username TEXT")
+            conn.execute("CREATE UNIQUE INDEX IF NOT EXISTS idx_users_username ON users(username)")
 
     # ---------------- Token Revocation ----------------
     def revoke_token(self, jti: str, expires_at: int) -> None:
@@ -114,22 +131,36 @@ class CaseRepository:
         return row is not None
 
     # ---------------- Users & Profiles ----------------
-    def create_user(self, *, email: str, full_name: str, password_hash: str) -> dict[str, Any]:
+    def create_user(
+        self,
+        *,
+        email: str,
+        full_name: str,
+        password_hash: str,
+        username: str | None = None,
+    ) -> dict[str, Any]:
+        import re as _re
         uid = f"usr_{uuid.uuid4().hex[:12]}"
         created_at = datetime.now(timezone.utc).isoformat()
         clean_email = email.strip().lower()
         clean_name = full_name.strip()
+        if username and username.strip():
+            clean_username = username.strip().lower()
+        else:
+            base = _re.sub(r"[^a-z0-9_.-]+", "", clean_email.split("@")[0]) or "user"
+            clean_username = f"{base[:20]}_{uid[-4:]}"
         with self._connect() as conn:
             conn.execute(
                 """
-                INSERT INTO users (user_id, email, full_name, password_hash, created_at)
-                VALUES (?, ?, ?, ?, ?)
+                INSERT INTO users (user_id, email, username, full_name, password_hash, created_at)
+                VALUES (?, ?, ?, ?, ?, ?)
                 """,
-                (uid, clean_email, clean_name, password_hash, created_at),
+                (uid, clean_email, clean_username, clean_name, password_hash, created_at),
             )
         return {
             "user_id": uid,
             "email": clean_email,
+            "username": clean_username,
             "full_name": clean_name,
             "created_at": created_at,
         }
@@ -142,10 +173,18 @@ class CaseRepository:
             ).fetchone()
         return dict(row) if row is not None else None
 
+    def get_user_by_username(self, username: str) -> dict[str, Any] | None:
+        with self._connect() as conn:
+            row = conn.execute(
+                "SELECT * FROM users WHERE LOWER(username) = ?",
+                (username.strip().lower(),),
+            ).fetchone()
+        return dict(row) if row is not None else None
+
     def get_user_by_id(self, user_id: str) -> dict[str, Any] | None:
         with self._connect() as conn:
             row = conn.execute(
-                "SELECT user_id, email, full_name, created_at FROM users WHERE user_id = ?",
+                "SELECT user_id, email, username, full_name, created_at FROM users WHERE user_id = ?",
                 (user_id,),
             ).fetchone()
         return dict(row) if row is not None else None
@@ -169,7 +208,7 @@ class CaseRepository:
     def get_user_profile(self, user_id: str) -> dict[str, Any] | None:
         with self._connect() as conn:
             row = conn.execute(
-                "SELECT profile_json, weight_updated_at, updated_at FROM user_profiles WHERE user_id = ?",
+                "SELECT profile_json, weight_updated_at, updated_at, profile_completed FROM user_profiles WHERE user_id = ?",
                 (user_id,),
             ).fetchone()
         if row is None:
@@ -178,6 +217,7 @@ class CaseRepository:
             "profile": json.loads(row["profile_json"]),
             "weight_updated_at": row["weight_updated_at"],
             "updated_at": row["updated_at"],
+            "profile_completed": bool(row["profile_completed"]),
         }
 
     def upsert_user_profile(
@@ -185,6 +225,7 @@ class CaseRepository:
         user_id: str,
         profile_dict: dict[str, Any],
         force_weight_timestamp: bool = False,
+        mark_completed: bool | None = None,
     ) -> dict[str, Any]:
         now_iso = datetime.now(timezone.utc).isoformat()
         existing = self.get_user_profile(user_id)
@@ -196,22 +237,31 @@ class CaseRepository:
             new_weight = profile_dict.get("weight_kg")
             weight_updated_at = now_iso if prev_weight != new_weight else existing["weight_updated_at"]
 
+        if mark_completed is not None:
+            completed_int = 1 if mark_completed else 0
+        elif existing is not None:
+            completed_int = 1 if existing.get("profile_completed") else 0
+        else:
+            completed_int = 0
+
         with self._connect() as conn:
             conn.execute(
                 """
-                INSERT INTO user_profiles (user_id, profile_json, weight_updated_at, updated_at)
-                VALUES (?, ?, ?, ?)
+                INSERT INTO user_profiles (user_id, profile_json, weight_updated_at, updated_at, profile_completed)
+                VALUES (?, ?, ?, ?, ?)
                 ON CONFLICT(user_id) DO UPDATE SET
                     profile_json = excluded.profile_json,
                     weight_updated_at = excluded.weight_updated_at,
-                    updated_at = excluded.updated_at
+                    updated_at = excluded.updated_at,
+                    profile_completed = excluded.profile_completed
                 """,
-                (user_id, json.dumps(profile_dict, default=str), weight_updated_at, now_iso),
+                (user_id, json.dumps(profile_dict, default=str), weight_updated_at, now_iso, completed_int),
             )
         return {
             "profile": profile_dict,
             "weight_updated_at": weight_updated_at,
             "updated_at": now_iso,
+            "profile_completed": bool(completed_int),
         }
 
     # ---------------- Private User Cases ----------------

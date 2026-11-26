@@ -11,7 +11,7 @@ from datetime import date
 from enum import Enum
 from typing import Any, Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 
 # ---------------------------------------------------------------------------
@@ -96,6 +96,42 @@ class PatientProfile(BaseModel):
         default_factory=list,
         description="Current skincare actives e.g. tretinoin, adapalene, salicylic acid, glycolic acid, benzoyl peroxide",
     )
+
+    @field_validator(
+        "drug_allergies",
+        "ongoing_oral_meds",
+        "systemic_conditions",
+        "climate_tags",
+        "current_routine_actives",
+        mode="before",
+    )
+    @classmethod
+    def _clean_tag_lists(cls, v: Any) -> list[str]:
+        if v is None:
+            return []
+        if not isinstance(v, list):
+            raise ValueError("Must be a list of text items.")
+        cleaned: list[str] = []
+        seen: set[str] = set()
+        for item in v:
+            s = str(item).strip().lower()
+            if not s or s in ("none", "nil", "n/a", "na", "-"):
+                continue
+            if len(s) > 80:
+                raise ValueError("Each entry must be 80 characters or fewer.")
+            if s not in seen:
+                seen.add(s)
+                cleaned.append(s)
+        if len(cleaned) > 30:
+            raise ValueError("At most 30 items are allowed per field.")
+        return cleaned
+
+    @model_validator(mode="after")
+    def _normalize_pregnancy_flags(self) -> "PatientProfile":
+        if self.biological_sex != "female":
+            self.is_pregnant = False
+            self.is_lactating = False
+        return self
 
     def needs_weight_refresh(self, today: date | None = None) -> bool:
         if self.weight_updated_at is None:

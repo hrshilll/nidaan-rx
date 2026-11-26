@@ -229,3 +229,73 @@ def test_change_password_rotates_token_and_revokes_old_session(tmp_path: Path) -
     # Old password fails login, new password succeeds
     assert client.post("/api/v2/auth/login", json={"email": "pwuser@example.com", "password": "OldPassword1"}).status_code == 401
     assert client.post("/api/v2/auth/login", json={"email": "pwuser@example.com", "password": "NewPassword2"}).status_code == 200
+
+def test_register_sets_profile_completed_false_until_saved(tmp_path, monkeypatch) -> None:
+    from fastapi.testclient import TestClient
+    import app.main as app_main
+    from app.db import CaseRepository
+
+    repo = CaseRepository(tmp_path / "test_onboarding.db")
+    monkeypatch.setattr(app_main, "get_case_repo", lambda: repo)
+    client = TestClient(app_main.app)
+
+    reg = client.post(
+        "/api/v2/auth/register",
+        json={
+            "email": "onboarding@example.com",
+            "password": "Password123",
+            "full_name": "New Onboarding User",
+        },
+    )
+    assert reg.status_code == 200
+    body = reg.json()
+    assert body["profile_completed"] is False
+    hdr = {"Authorization": f"Bearer {body['access_token']}"}
+
+    me_before = client.get("/api/v2/auth/me", headers=hdr)
+    assert me_before.status_code == 200
+    assert me_before.json()["profile_completed"] is False
+
+    prof = dict(body["profile"])
+    prof["age"] = 24
+    prof["weight_kg"] = 64.0
+    saved = client.put("/api/v2/profile", json=prof, headers=hdr)
+    assert saved.status_code == 200
+    assert saved.json()["profile_completed"] is True
+
+    me_after = client.get("/api/v2/auth/me", headers=hdr)
+    assert me_after.status_code == 200
+    assert me_after.json()["profile_completed"] is True
+
+
+def test_username_login_and_input_constraints(tmp_path: Path) -> None:
+    client = _fresh_client(tmp_path)
+
+    # Invalid username rejected
+    bad_u = client.post(
+        "/api/v2/auth/register",
+        json={"email": "u1@example.com", "username": "bad user!", "password": "Password123", "full_name": "Test User"},
+    )
+    assert bad_u.status_code == 422
+
+    # Valid signup with username
+    ok = client.post(
+        "/api/v2/auth/register",
+        json={"email": "u1@example.com", "username": "harshil_01", "password": "Password123", "full_name": "Harshil Test"},
+    )
+    assert ok.status_code == 200
+    assert ok.json()["user"]["username"] == "harshil_01"
+
+    # Login by username succeeds
+    by_user = client.post(
+        "/api/v2/auth/login",
+        json={"identifier": "harshil_01", "login_by": "username", "password": "Password123"},
+    )
+    assert by_user.status_code == 200
+
+    # Login by email succeeds
+    by_email = client.post(
+        "/api/v2/auth/login",
+        json={"identifier": "u1@example.com", "login_by": "email", "password": "Password123"},
+    )
+    assert by_email.status_code == 200

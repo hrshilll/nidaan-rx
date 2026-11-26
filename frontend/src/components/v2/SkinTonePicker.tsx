@@ -5,8 +5,8 @@ import { AlertCircle, Sun } from "lucide-react";
 import { MONK_SWATCHES, SUN_REACTIONS } from "@/lib/constants";
 
 interface SkinTonePickerProps {
-  monkTone: number;
-  fitzpatrickTone: number;
+  monkTone: number | null;
+  fitzpatrickTone: number | null;
   onChangeMonk: (tone: number) => void;
   onChangeFitzpatrick: (tone: number) => void;
 }
@@ -28,8 +28,12 @@ export function SkinTonePicker({
   onChangeMonk,
   onChangeFitzpatrick,
 }: SkinTonePickerProps) {
-  const expectedFitz = suggestedFitzpatrickForMonk(monkTone);
-  const mismatch = Math.abs(fitzpatrickTone - expectedFitz) >= 2;
+  const expectedFitz = monkTone ? suggestedFitzpatrickForMonk(monkTone) : null;
+  const mismatch =
+    monkTone !== null &&
+    fitzpatrickTone !== null &&
+    expectedFitz !== null &&
+    Math.abs(fitzpatrickTone - expectedFitz) >= 2;
 
   const handleSelectMonk = (tone: number) => {
     onChangeMonk(tone);
@@ -55,7 +59,9 @@ export function SkinTonePicker({
         </div>
 
         <span className="rounded-full bg-[#ECFEFF] px-3 py-1 text-xs font-semibold text-[#0E7490] ring-1 ring-[#A5F3FC] tabular-nums">
-          Monk {monkTone} · Fitzpatrick {FITZ_ROMAN[fitzpatrickTone] || fitzpatrickTone}
+          {monkTone && fitzpatrickTone
+            ? `Monk ${monkTone} · Fitzpatrick ${FITZ_ROMAN[fitzpatrickTone] || fitzpatrickTone}`
+            : "Not selected yet"}
         </span>
       </div>
 
@@ -94,7 +100,7 @@ export function SkinTonePicker({
           <div className="mt-2.5 flex items-start gap-2 rounded-xl bg-[#FFFBEB] px-3.5 py-2.5 text-xs text-[#92400E] ring-1 ring-[#FDE68A]">
             <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-[#D97706]" />
             <span>
-              Monk {monkTone} usually aligns with Fitzpatrick Type {FITZ_ROMAN[expectedFitz]}. Double-check both selections so skin-tone calibration stays accurate.
+              Monk {monkTone} usually aligns with Fitzpatrick Type {expectedFitz ? FITZ_ROMAN[expectedFitz] : ""}. Double-check both selections so skin-tone calibration stays accurate.
             </span>
           </div>
         )}

@@ -62,6 +62,7 @@ import { ProfileSettingsView } from "./ProfileSettingsView";
 import { RxScannerView } from "./RxScannerView";
 import { SkinTonePicker } from "./SkinTonePicker";
 import { TagChipField } from "./TagChipField";
+import { ThemeToggle } from "./ThemeToggle";
 
 type TopTab = "triage" | "rx" | "profile" | "benchmarks" | "cases";
 type TriageStep = 1 | 2 | 3;
@@ -118,6 +119,7 @@ export function NidaanWorkbench() {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [authChecked, setAuthChecked] = useState(false);
   const [weightUpdatedAt, setWeightUpdatedAt] = useState<string | null>(null);
+  const [profileCompleted, setProfileCompleted] = useState<boolean>(true);
   const [profileDirtyForSync, setProfileDirtyForSync] = useState(false);
   const [syncingProfile, setSyncingProfile] = useState(false);
 
@@ -151,10 +153,15 @@ export function NidaanWorkbench() {
       if (getAuthToken()) {
         try {
           const me = await fetchMe();
+          const completed = me.profile_completed ?? true;
           setUser(me.user);
           setProfile(me.profile);
           setWeightUpdatedAt(me.weight_updated_at);
+          setProfileCompleted(completed);
           setProfileDirtyForSync(false);
+          if (!completed) {
+            setTab("profile");
+          }
           signedIn = true;
         } catch {
           clearAuthToken();
@@ -181,17 +188,29 @@ export function NidaanWorkbench() {
   }, [loadMeta]);
 
   const handleAuthSuccess = (res: AuthResponse) => {
+    const completed = res.profile_completed ?? true;
     setUser(res.user);
     setProfile(res.profile);
     setWeightUpdatedAt(res.weight_updated_at);
+    setProfileCompleted(completed);
     setProfileDirtyForSync(false);
+    setStep(1);
+    setTab(completed ? "triage" : "profile");
+    window.scrollTo({ top: 0, behavior: "smooth" });
     fetchRecentCases(20).then(setCases).catch(() => null);
   };
+
+  useEffect(() => {
+    if (user && !profileCompleted && tab !== "profile") {
+      setTab("profile");
+    }
+  }, [user, profileCompleted, tab]);
 
   const handleSignOut = async () => {
     await logoutUser();
     setUser(null);
     setWeightUpdatedAt(null);
+    setProfileCompleted(true);
     setSlots([null, null, null]);
     setEnforceQualityGate(true);
     setProfile(DEFAULT_PROFILE);
@@ -409,24 +428,34 @@ export function NidaanWorkbench() {
             aria-label="Primary navigation"
             className="no-scrollbar order-3 flex w-full items-center gap-1 overflow-x-auto rounded-full bg-[#E8F1F6] p-1 text-xs font-semibold sm:order-2 sm:w-auto sm:justify-center"
           >
-            {navItems.map(([key, label]) => (
-              <button
-                key={key}
-                type="button"
-                aria-current={tab === key ? "page" : undefined}
-                onClick={() => setTab(key)}
-                className={`shrink-0 whitespace-nowrap cursor-pointer rounded-full px-3.5 py-1.5 transition ${
-                  tab === key
-                    ? "bg-white text-[#0891B2] shadow-xs"
-                    : "text-[#475569] hover:text-[#164E63]"
-                }`}
-              >
-                {label}
-              </button>
-            ))}
+            {navItems.map(([key, label]) => {
+              const locked = Boolean(user && !profileCompleted && key !== "profile");
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  disabled={locked}
+                  title={locked ? "Complete your health profile first" : undefined}
+                  aria-current={tab === key ? "page" : undefined}
+                  onClick={() => {
+                    if (!locked) setTab(key);
+                  }}
+                  className={`shrink-0 whitespace-nowrap rounded-full px-3.5 py-1.5 transition ${
+                    locked
+                      ? "cursor-not-allowed text-[#94A3B8] opacity-60"
+                      : tab === key
+                      ? "cursor-pointer bg-white text-[#0891B2] shadow-xs"
+                      : "cursor-pointer text-[#475569] hover:text-[#164E63]"
+                  }`}
+                >
+                  {label}
+                </button>
+              );
+            })}
           </nav>
 
           <div className="order-2 flex items-center gap-2 sm:order-3">
+            <ThemeToggle />
             {backendOffline ? (
               <button
                 type="button"
@@ -1234,10 +1263,18 @@ export function NidaanWorkbench() {
             user={user}
             profile={profile}
             weightUpdatedAt={weightUpdatedAt}
+            isOnboarding={!profileCompleted}
             onProfileSaved={(nextP, nextW) => {
+              const wasOnboarding = !profileCompleted;
               setProfile(nextP);
               setWeightUpdatedAt(nextW);
+              setProfileCompleted(true);
               setProfileDirtyForSync(false);
+              if (wasOnboarding) {
+                setTab("triage");
+                setStep(1);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
             }}
             onSignOut={handleSignOut}
           />

@@ -106,12 +106,12 @@ export function TagChipField({
             }
           }}
           placeholder={placeholder}
-          className="h-10 flex-1 rounded-xl bg-[#F3FAFC] px-3.5 text-xs text-[#164E63] ring-1 ring-[#CBEBF2] placeholder:text-[#64748B] focus:bg-white focus:ring-2 focus:ring-[#0891B2] focus:outline-none"
+          className="h-10 flex-1 rounded-xl bg-[#F3FAFC] px-3.5 text-xs text-[#164E63] ring-1 ring-[#CBEBF2] placeholder:text-[#64748B] transition-colors duration-150 focus:bg-white focus:ring-2 focus:ring-[#0891B2] focus:outline-none"
         />
         <button
           type="button"
           onClick={() => addToken(draft)}
-          className="inline-flex h-10 cursor-pointer items-center gap-1 rounded-xl bg-[#E8F1F6] px-3.5 text-xs font-semibold text-[#164E63] transition hover:bg-[#E5E5EA]"
+          className="inline-flex h-10 cursor-pointer items-center gap-1 rounded-xl bg-[#E8F1F6] px-3.5 text-xs font-semibold text-[#164E63] transition-all duration-200 hover:bg-[#D7E7F0] active:scale-95"
         >
           <Plus className="h-3.5 w-3.5" /> Add
         </button>

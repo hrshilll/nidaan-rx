@@ -189,7 +189,7 @@ export function PhotoUploader({
     <section className="clinical-card p-6 sm:p-7">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="flex items-start gap-3.5">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#ECFEFF] text-[#0891B2] ring-1 ring-[#A5F3FC]">
+          <div className="upload-slot flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#ECFEFF] text-[#0891B2] ring-1 ring-[#A5F3FC]">
             <Camera className="h-5 w-5" />
           </div>
           <div>

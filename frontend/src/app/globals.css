@@ -119,3 +119,123 @@ input[type="range"].clinical-slider::-moz-range-thumb {
     break-inside: avoid;
   }
 }
+
+
+/* Dark Theme Support */
+html.dark {
+  color-scheme: dark;
+  --color-background: #0B1220;
+  --color-canvas: #0B1220;
+  --color-foreground: #E2F1F8;
+  --color-card: #111C2D;
+  --color-muted: #1B2940;
+  --color-muted-foreground: #94A3B8;
+  --color-border: #23354F;
+}
+
+html.dark .clinical-card {
+  background: var(--color-card);
+  border-color: rgba(56, 189, 248, 0.16);
+  box-shadow: 0 10px 28px -12px rgba(0, 0, 0, 0.55);
+}
+
+html.dark .bg-white { background-color: #162338 !important; }
+html.dark .bg-\[\#F3FAFC\],
+html.dark .bg-\[\#F3FAFC\]\/85 { background-color: #0E1726 !important; }
+html.dark .bg-\[\#E8F1F6\] { background-color: #1B2940 !important; }
+html.dark .bg-\[\#ECFEFF\] { background-color: #0F2938 !important; }
+html.dark .text-\[\#164E63\] { color: #E2F1F8 !important; }
+html.dark .text-\[\#475569\],
+html.dark .text-\[\#334155\],
+html.dark .text-\[\#64748B\] { color: #94A3B8 !important; }
+html.dark .text-\[\#0E7490\] { color: #38BDF8 !important; }
+html.dark .ring-\[\#CBEBF2\],
+html.dark .ring-\[\#DCECF1\],
+html.dark .ring-\[\#A5F3FC\] { --tw-ring-color: #23354F !important; }
+html.dark .border-\[\#CBEBF2\]\/80,
+html.dark .border-\[\#E8F1F6\] { border-color: #23354F !important; }
+html.dark input,
+html.dark select,
+html.dark textarea {
+  color: #E2F1F8 !important;
+}
+html.dark input[type="range"].clinical-slider {
+  background: #23354F;
+}
+
+
+/* Dark Mode Hover, Focus & Upload Polish */
+html.dark .bg-\[\#F8FAFC\],
+html.dark .bg-\[\#F1F5F9\],
+html.dark .bg-\[\#F0F9FF\],
+html.dark .bg-\[\#ECFDF5\],
+html.dark .bg-\[\#FFFBEB\],
+html.dark .bg-\[\#FEF2F2\] {
+  background-color: #132033 !important;
+}
+
+html.dark .bg-\[\#ECFEFF\]\/60,
+html.dark .bg-\[\#ECFEFF\]\/50,
+html.dark .bg-\[\#F3FAFC\]\/70,
+html.dark .bg-white\/80,
+html.dark .bg-white\/90 {
+  background-color: #132033 !important;
+}
+
+html.dark .hover\:bg-white:hover,
+html.dark .hover\:bg-\[\#E5E5EA\]:hover,
+html.dark .hover\:bg-\[\#D7E7F0\]:hover,
+html.dark .hover\:bg-\[\#D8E7F0\]:hover,
+html.dark .hover\:bg-\[\#D5E7F0\]:hover,
+html.dark .hover\:bg-\[\#E8F1F6\]:hover,
+html.dark .hover\:bg-\[\#F3FAFC\]:hover,
+html.dark .hover\:bg-\[\#ECFEFF\]:hover,
+html.dark .hover\:bg-\[\#FEF2F2\]:hover {
+  background-color: #1E324D !important;
+}
+
+html.dark .focus\:bg-white:focus {
+  background-color: #162338 !important;
+}
+
+html.dark .border-dashed {
+  border-color: #2B4263 !important;
+}
+
+html.dark .hover\:border-\[\#0891B2\]:hover {
+  border-color: #38BDF8 !important;
+}
+
+/* Smooth Toggle & Button Micro-Animations */
+button,
+[role="switch"],
+[role="tab"] {
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 180ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+button:not(:disabled):active,
+[role="switch"]:not(:disabled):active {
+  transform: scale(0.97);
+}
+
+
+/* Theme-Aware Upload Dropzones */
+.upload-slot {
+  background-color: #F3FAFC !important;
+  border-color: #CBEBF2 !important;
+  transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+.upload-slot:hover {
+  background-color: #E8F1F6 !important;
+  border-color: #0891B2 !important;
+}
+html.dark .upload-slot {
+  background-color: #0E1828 !important;
+  border-color: #23354F !important;
+}
+html.dark .upload-slot:hover {
+  background-color: #16263D !important;
+  border-color: #38BDF8 !important;
+}

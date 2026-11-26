@@ -18,6 +18,7 @@ from fastapi import Header, HTTPException
 
 SECRET_FILE = Path("data/.auth_secret")
 TOKEN_TTL_SECONDS = 60 * 60 * 24 * 14  # 14 days
+SERVER_BOOT_ID = secrets.token_hex(8)
 
 
 def _get_secret() -> bytes:
@@ -77,6 +78,7 @@ def create_access_token(
         json.dumps(
             {
                 "jti": uuid.uuid4().hex,
+                "boot": SERVER_BOOT_ID,
                 "sub": user_id,
                 "email": email,
                 "name": full_name,
@@ -102,6 +104,8 @@ def verify_access_token(token: str) -> dict[str, Any] | None:
         if int(payload.get("exp", 0)) < int(time.time()):
             return None
         if not payload.get("sub"):
+            return None
+        if payload.get("boot") != SERVER_BOOT_ID:
             return None
         return payload
     except Exception:
